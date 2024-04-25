@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  post.api:
+    image: ${DOCKER_REGISTRY-}postapi
+    build:
+      context: .
+      dockerfile: Services/Post/Post.API/Dockerfile
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+
+volumes:
+  mssql_data:
