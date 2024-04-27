@@ -12,6 +12,17 @@ services:
     ports:
       - "8001:8080"
 
+  user.api:
+    container_name: user.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - "ConnectionString:UserConnectionString=Server=mssql;Database=UsertDb;User Id=sa;Password=MATF12345678rs2;"
+    depends_on:
+      - mssql
+    ports:
+      - "8001:8080"
+
 
   mssql:
     container_name: mssql
