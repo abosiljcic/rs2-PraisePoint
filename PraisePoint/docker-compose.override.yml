@@ -21,7 +21,7 @@ services:
     depends_on:
       - mssql
     ports:
-      - "8001:8080"
+      - "8002:8080"
 
 
   mssql:
