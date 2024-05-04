@@ -23,6 +23,16 @@ services:
     ports:
       - "8002:8080"
 
+  reward.api:
+    container_name: reward.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - "ConnectionString:UserConnectionString=Server=mssql;Database=RewardDb;User Id=sa;Password=MATF12345678rs2;"
+    depends_on:
+      - mssql
+    ports:
+      - "8003:8080"
 
   mssql:
     container_name: mssql
@@ -34,3 +44,6 @@ services:
         - "1433:1433"
     volumes:
         - mssql_data:/var/opt/mssql/data
+
+  
+
