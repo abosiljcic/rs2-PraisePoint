@@ -1,6 +1,15 @@
 version: '3.4'
 
 services:
+
+  rewarddb:
+    container_name: rewarddb   
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
   post.api:
     container_name: post.api
     environment:
@@ -28,9 +37,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-      - "ConnectionString:UserConnectionString=Server=mssql;Database=RewardDb;User Id=sa;Password=MATF12345678rs2;"
+      - "DatabaseSettings:ConnectionString=mongodb://rewarddb:27017"
     depends_on:
-      - mssql
+      - rewarddb
     ports:
       - "8003:8080"
 

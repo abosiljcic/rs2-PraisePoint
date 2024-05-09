@@ -1,6 +1,9 @@
 version: '3.4'
 
 services:
+  rewarddb:
+    image: mongo
+
   post.api:
     image: ${DOCKER_REGISTRY-}postapi
     build:
@@ -24,4 +27,4 @@ services:
 
 volumes:
   mssql_data:
-
+  mongo_data:
