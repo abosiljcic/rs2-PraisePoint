@@ -10,6 +10,18 @@ services:
     volumes:
       - mongo_data:/data/db
 
+  basket.api:
+    container_name: basket.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - "ConnectionString:BasketConnectionString=Server=mssql;Database=BasketDb;User Id=sa;Password=MATF12345678rs2;"
+    depends_on:
+      - mssql
+    ports:
+      - "8001:8080"
+
+
   post.api:
     container_name: post.api
     environment:
@@ -19,7 +31,8 @@ services:
     depends_on:
       - mssql
     ports:
-      - "8001:8080"
+      - "8001:8080" 
+
 
   user.api:
     container_name: user.api
