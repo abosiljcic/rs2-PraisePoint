@@ -12,7 +12,7 @@ using User.API.Data;
 namespace User.API.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20240510182427_CreatingUserTables")]
+    [Migration("20240510190845_CreatingUserTables")]
     partial class CreatingUserTables
     {
         /// <inheritdoc />

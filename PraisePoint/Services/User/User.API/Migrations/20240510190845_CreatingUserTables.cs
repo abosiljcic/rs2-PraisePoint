@@ -12,20 +12,6 @@ namespace User.API.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AspNetRoles",
-                columns: table => new
-                {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Companies",
                 columns: table => new
                 {
@@ -37,6 +23,34 @@ namespace User.API.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Companies", x => x.Id);
+                });
+
+            // seed data into Companies table
+            migrationBuilder.InsertData(
+            table: "Companies",
+            columns: new[] { "Id", "Name", "Domain", "PointsNumber" },
+            values: new object[,]
+            {
+                { Guid.NewGuid(), "Google", "gmail.com", 550 },
+                { Guid.NewGuid(), "Oracle", "oracle.com", 450 },
+                { Guid.NewGuid(), "IBM", "ibm.com", 400 },
+                { Guid.NewGuid(), "Starbucks", "starbucks.com", 350 },
+                { Guid.NewGuid(), "GoDaddy", "godaddy.com", 350 },
+                { Guid.NewGuid(), "Nike", "nike.com", 300 },
+            });
+
+            migrationBuilder.CreateTable(
+                name: "AspNetRoles",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    NormalizedName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AspNetRoles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(

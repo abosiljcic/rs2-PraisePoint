@@ -12,12 +12,15 @@ namespace User.API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-
             modelBuilder.Entity<Entities.User>()
                 .HasOne<Company>() 
                 .WithMany()        
-                .HasForeignKey(u => u.CompanyId); 
+                .HasForeignKey(u => u.CompanyId);
+
+            modelBuilder.Entity<Entities.User>()
+                .HasIndex(u => u.CompanyId);
+
+            base.OnModelCreating(modelBuilder);
         }
 
     }
