@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Posts\Commands\" />
+    <Folder Include="Features\Posts\Queries\GetPostById\" />
+    <Folder Include="Features\Posts\Queries\GetPostsByCompanyId\" />
+    <Folder Include="Features\Posts\Queries\GetPostsByHashtagId\" />
     <Folder Include="Models\" />
   </ItemGroup>
 
