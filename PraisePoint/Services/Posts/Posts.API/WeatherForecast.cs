@@ -1,4 +1,4 @@
-namespace Post.API;
+namespace Posts.API;
 
 public class WeatherForecast
 {

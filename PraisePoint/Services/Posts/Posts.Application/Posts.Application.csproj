@@ -16,4 +16,8 @@
     <Folder Include="Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Posts.Domain\Posts.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

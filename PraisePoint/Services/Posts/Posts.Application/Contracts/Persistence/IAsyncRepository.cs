@@ -1,4 +1,4 @@
-﻿using Post.Domain.Common;
+﻿using Posts.Domain.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Post.Application.Contracts.Persistence
+namespace Posts.Application.Contracts.Persistence
 {
     public interface IAsyncRepository<T> where T : AggregateRoot
     {

@@ -1,12 +1,12 @@
-﻿using Post.Domain.Common;
-using Post.Domain.Entities;
+﻿using Posts.Domain.Common;
+using Posts.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Post.Domain.Aggregates
+namespace Posts.Domain.Aggregates
 {
     public class Post : AggregateRoot
     {
