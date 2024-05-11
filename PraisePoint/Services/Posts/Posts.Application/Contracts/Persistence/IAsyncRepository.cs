@@ -1,4 +1,4 @@
-﻿using Post.Domain.Common;
+﻿using Posts.Domain.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
