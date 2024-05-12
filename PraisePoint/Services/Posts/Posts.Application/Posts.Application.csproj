@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.9.1" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.1" />
     <PackageReference Include="MediatR" Version="12.2.0" />
@@ -14,10 +20,8 @@
 
   <ItemGroup>
     <Folder Include="Features\Posts\Commands\" />
-    <Folder Include="Features\Posts\Queries\GetPostById\" />
     <Folder Include="Features\Posts\Queries\GetPostsByCompanyId\" />
     <Folder Include="Features\Posts\Queries\GetPostsByHashtagId\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
