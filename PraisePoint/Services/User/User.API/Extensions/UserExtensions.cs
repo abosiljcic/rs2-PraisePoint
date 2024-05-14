@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System.Reflection;
 using User.API.Data;
 
 namespace User.API.Extensions
@@ -29,5 +31,19 @@ namespace User.API.Extensions
 
             return services;
         }
+
+        public static IServiceCollection ConfigureMiscellaneousServices(this IServiceCollection services)
+        {
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
+            return services;
+        }
     }
 }
+

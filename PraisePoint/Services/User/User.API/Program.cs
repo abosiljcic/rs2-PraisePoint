@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.ConfigurePersistence(builder.Configuration);
 builder.Services.ConfigureIdentity();
 //builder.Services.ConfigureJWT(builder.Configuration);
-//builder.Services.ConfigureMiscellaneousServices();
+builder.Services.ConfigureMiscellaneousServices();
 
 var app = builder.Build();
 

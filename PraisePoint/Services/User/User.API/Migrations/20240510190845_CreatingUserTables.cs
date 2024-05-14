@@ -81,7 +81,6 @@ namespace User.API.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CompanyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Active = table.Column<bool>(type: "bit", nullable: false),
