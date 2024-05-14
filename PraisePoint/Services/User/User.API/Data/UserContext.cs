@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using User.API.Data.EntityTypeConfigurations;
 using User.API.Entities;
 
 namespace User.API.Data
@@ -12,6 +13,8 @@ namespace User.API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Entities.User>()
                 .HasOne<Company>() 
                 .WithMany()        
@@ -20,7 +23,7 @@ namespace User.API.Data
             modelBuilder.Entity<Entities.User>()
                 .HasIndex(u => u.CompanyId);
 
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
         }
 
     }
