@@ -1,4 +1,5 @@
 using User.API.Extensions;
+using User.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +12,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.ConfigurePersistence(builder.Configuration);
 builder.Services.ConfigureIdentity();
-//builder.Services.ConfigureJWT(builder.Configuration);
+builder.Services.ConfigureJWT(builder.Configuration);
 builder.Services.ConfigureMiscellaneousServices();
+
+builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
 
 var app = builder.Build();
 
