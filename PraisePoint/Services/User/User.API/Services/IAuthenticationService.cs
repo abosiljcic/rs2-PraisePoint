@@ -6,5 +6,6 @@ namespace User.API.Services
     {
         Task<Entities.User?> ValidateUser(UserCredentialsDto userCredentials);
         Task<AuthenticationModel> CreateAuthenticationModel(Entities.User user);
+        Task RemoveRefreshToken(Entities.User user, string refreshToken);
     }
 }

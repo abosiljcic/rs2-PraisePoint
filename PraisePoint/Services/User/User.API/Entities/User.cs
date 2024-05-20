@@ -9,5 +9,6 @@ namespace User.API.Entities
         public Guid CompanyId { get; set; }
         public string ImageUrl { get; set; }
         public bool Active { get; set; }
+        public List<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
     }
 }

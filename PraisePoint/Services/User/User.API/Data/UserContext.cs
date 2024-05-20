@@ -11,6 +11,8 @@ namespace User.API.Data
 
         public DbSet<Company> Companies { get; set; }
 
+        public DbSet<RefreshToken> RefreshTokens { get; set; } = null!;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -28,6 +30,7 @@ namespace User.API.Data
             .HasDefaultValue(true);
 
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
         }
 
     }
