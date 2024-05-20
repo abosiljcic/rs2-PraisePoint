@@ -21,7 +21,7 @@ namespace User.API.Controllers.Base
         }
 
         protected async Task<IActionResult> RegisterNewUserWithRoles(NewUserDto newUser, IEnumerable<string> roles)
-        {
+        {   
             var user = _mapper.Map<Entities.User>(newUser);
 
             var result = await _userManager.CreateAsync(user, newUser.Password);

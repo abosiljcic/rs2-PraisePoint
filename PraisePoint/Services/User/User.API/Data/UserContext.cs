@@ -23,6 +23,10 @@ namespace User.API.Data
             modelBuilder.Entity<Entities.User>()
                 .HasIndex(u => u.CompanyId);
 
+            modelBuilder.Entity<Entities.User>()
+            .Property(u => u.Active)
+            .HasDefaultValue(true);
+
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
         }
 
