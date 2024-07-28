@@ -15,7 +15,6 @@ namespace Posts.Domain.Aggregates
         public Guid CompanyId { get; private set; }
         public int Points { get; private set; }
         public string Description { get; private set; }
-        public string ImageUrl { get; private set; }
 
         private readonly List<Like> _postLikes = new List<Like>();
         public IReadOnlyCollection<Like> PostLikes => _postLikes;
@@ -25,17 +24,16 @@ namespace Posts.Domain.Aggregates
         public IReadOnlyCollection<Comment> PostComments => _postComments;
 
 
-        public Post(string senderUsername, string receiverUsername, Guid companyId, int points, string description, string imageUrl)
+        public Post(string senderUsername, string receiverUsername, Guid companyId, int points, string description)
         {
             SenderUsername = senderUsername ?? throw new ArgumentNullException(nameof(senderUsername));
             ReceiverUsername = receiverUsername ?? throw new ArgumentNullException(nameof(receiverUsername));
             CompanyId = companyId;
             Points = points;
             Description = description ?? throw new ArgumentNullException(nameof(description));
-            ImageUrl = imageUrl ?? throw new ArgumentNullException(nameof(imageUrl));
         }
 
-        public Post(Guid id, string senderUsername, string receiverUsername, Guid companyId, int points, string description, string imageUrl): this(senderUsername, receiverUsername, companyId, points, description, imageUrl)
+        public Post(Guid id, string senderUsername, string receiverUsername, Guid companyId, int points, string description): this(senderUsername, receiverUsername, companyId, points, description)
         {
             Id = id;
         }
