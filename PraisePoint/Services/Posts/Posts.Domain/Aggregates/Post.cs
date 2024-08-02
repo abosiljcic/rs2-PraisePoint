@@ -20,7 +20,6 @@ namespace Posts.Domain.Aggregates
         public IReadOnlyCollection<Like> PostLikes => _postLikes;
 
         private readonly List<Comment> _postComments = new List<Comment>();
-
         public IReadOnlyCollection<Comment> PostComments => _postComments;
 
 
