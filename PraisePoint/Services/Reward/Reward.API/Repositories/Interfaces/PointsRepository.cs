@@ -18,6 +18,11 @@ namespace Reward.API.Repositories.Interfaces
             return await _context.AllPoints.Find(p => true).ToListAsync();
         }
 
+        public async Task<IEnumerable<Points>> GetPointsForCompanyById(string company_id)
+        {
+            return await _context.AllPoints.Find(p => p.company_id == company_id).ToListAsync();
+        }
+
         public async Task<Points> GetPointsForUserById(string user_id)
         {
             return await _context.AllPoints.Find(p => p.user_id == user_id).FirstOrDefaultAsync();

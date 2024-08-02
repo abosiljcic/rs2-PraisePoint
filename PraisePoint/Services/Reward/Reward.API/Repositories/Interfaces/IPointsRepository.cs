@@ -6,6 +6,6 @@ namespace Reward.API.Repositories.Interfaces
     {
         Task<IEnumerable<Points>> GetAllPoints();
         Task<Points> GetPointsForUserById(string user_id);
-
+        Task<IEnumerable<Points>> GetPointsForCompanyById(string company_id);
     }
 }
