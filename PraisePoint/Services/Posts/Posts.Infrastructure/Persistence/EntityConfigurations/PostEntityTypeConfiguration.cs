@@ -15,29 +15,52 @@ namespace Posts.Infrastructure.Persistence.EntityConfigurations
 
         public void Configure(EntityTypeBuilder<Post> builder)
         {
+            // Configure the table name
             builder.ToTable("Posts");
-            builder.HasKey(o => o.Id);
-            builder.Property(o => o.Id).UseHiLo("postseq");
 
-            builder.OwnsMany(o => o.PostLikes, a =>
-            {
-                a.Property<int>("PostId").UseHiLo("postseq"); 
-                a.WithOwner().HasForeignKey("PostId");
-            });
+            // Configure the primary key
+            builder.HasKey(p => p.Id);
 
-            builder.OwnsMany(o => o.PostComments, a =>
-            {
-                a.Property<int>("PostId").UseHiLo("postseq"); 
-                a.WithOwner().HasForeignKey("PostId");
-            });
+            // Configure properties
+            builder.Property(p => p.SenderUsername)
+                .HasColumnType("VARCHAR(24)")
+                .HasColumnName("SenderUsername")
+                .IsRequired();
 
-            var navigation1 = builder.Metadata.FindNavigation(nameof(Post.PostLikes))
+            builder.Property(p => p.ReceiverUsername)
+                .HasColumnType("VARCHAR(24)")
+                .HasColumnName("ReceiverUsername")
+                .IsRequired();
+
+            builder.Property(p => p.CompanyId)
+                .HasColumnType("uniqueidentifier")
+                .HasColumnName("CompanyId")
+                .IsRequired();
+
+            builder.Property(p => p.Points)
+                .HasColumnType("int")
+                .HasColumnName("Points")
+                .IsRequired();
+
+            builder.Property(p => p.Description)
+                .HasColumnType("VARCHAR(1000)")
+                .HasColumnName("Description")
+                .IsRequired();
+
+            // builder.HasMany(p => p.PostLikes)
+            //     .WithOne(l => l.Post)
+            //     .HasForeignKey(l => l.PostId);
+            //
+            // builder.HasMany(p => p.PostComments)
+            //     .WithOne(c => c.Post)
+            //     .HasForeignKey(c => c.PostId);
+            var likesNavigation = builder.Metadata.FindNavigation(nameof(Post.PostLikes))
                              ?? throw new PostDomainException($"No navigation property found on {nameof(Post.PostLikes)}");
-            navigation1.SetPropertyAccessMode(PropertyAccessMode.Field);
-
-            var navigation2 = builder.Metadata.FindNavigation(nameof(Post.PostComments))
+            likesNavigation.SetPropertyAccessMode(PropertyAccessMode.Field);
+            
+            var commentsNavigation = builder.Metadata.FindNavigation(nameof(Post.PostComments))
                              ?? throw new PostDomainException($"No navigation property found on {nameof(Post.PostComments)}");
-            navigation2.SetPropertyAccessMode(PropertyAccessMode.Field);
+            commentsNavigation.SetPropertyAccessMode(PropertyAccessMode.Field);
         }
 
     }
