@@ -2,8 +2,9 @@ using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using Posts.Application.Contracts.Persistence;
 using Posts.Domain.Common;
+using Posts.Infrastructure.Persistence;
 
-namespace Posts.Infrastructure.Persistence.Repositories;
+namespace Posts.Infrastructure.Repositories;
 
 public class RepositoryBase<T>: IAsyncRepository<T> where T: AggregateRoot
 {

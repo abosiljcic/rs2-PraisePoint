@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Posts.Application.Contracts.Persistence;
 using Posts.Domain.Aggregates;
+using Posts.Infrastructure.Persistence;
 
-namespace Posts.Infrastructure.Persistence.Repositories;
+namespace Posts.Infrastructure.Repositories;
 
 public class PostRepository: RepositoryBase<Post>, IPostRepository
 {
