@@ -31,7 +31,7 @@ services:
     depends_on:
       - mssql
     ports:
-      - "8001:8080" 
+      - "8004:8080" 
 
 
   user.api:

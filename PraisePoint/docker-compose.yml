@@ -4,11 +4,17 @@ services:
   rewarddb:
     image: mongo
 
+  basket.api:
+    image: ${DOCKER_REGISTRY-}basketapi
+    build:
+      context: .
+      dockerfile: Services/Basket/Basket.API/Dockerfile
+
   post.api:
     image: ${DOCKER_REGISTRY-}postapi
     build:
       context: .
-      dockerfile: Services/Post/Post.API/Dockerfile
+      dockerfile: Services/Posts/Posts.API/Dockerfile
 
   user.api:
     image: ${DOCKER_REGISTRY-}userapi
