@@ -21,10 +21,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reward.API", "Services\Rewa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Post.Domain", "Services\Post\Post.Domain\Post.Domain.csproj", "{358A8614-01A5-4E9E-8E49-BB2DA42ADFC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Post.Application", "Services\Post\Post.Application\Post.Application.csproj", "{8F1379B7-7E06-4A64-AF1F-3B874E0606E2}"
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.API", "Services\Basket\Basket.API\Basket.API.csproj", "{B9A72C38-B8E9-4E06-B46F-E329784BF9FF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{31334ED8-06C3-4366-9DCF-78BCED63E46F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Posts.Application", "Services\Posts\Posts.Application\Posts.Application.csproj", "{8F1379B7-7E06-4A64-AF1F-3B874E0606E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
