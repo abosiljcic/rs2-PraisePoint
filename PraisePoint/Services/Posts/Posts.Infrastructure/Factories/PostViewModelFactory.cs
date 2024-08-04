@@ -31,7 +31,6 @@ public class PostViewModelFactory: IPostViewModelFactory
             var likeItem = new LikeViewModel();
             likeItem.Id = like.Id;
             likeItem.Username = like.Username;
-            likeItem.PostId = like.PostId;
             postLikes.Add(likeItem);
         }
 
