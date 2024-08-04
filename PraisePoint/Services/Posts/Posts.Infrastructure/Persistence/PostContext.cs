@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Posts.Domain.Aggregates;
 using Posts.Domain.Common;
+using Posts.Domain.Entities;
 using Posts.Infrastructure.Persistence.EntityConfigurations;
 
 namespace Posts.Infrastructure.Persistence
@@ -13,6 +14,8 @@ namespace Posts.Infrastructure.Persistence
     public class PostContext : DbContext
     {
         public DbSet<Post> Posts { get; set; } = null!;
+        // public DbSet<Like> Likes { get; set; } = null;
+        // public DbSet<Comment> Comments { get; set; } = null;
 
         public PostContext(DbContextOptions options) : base(options)
         {

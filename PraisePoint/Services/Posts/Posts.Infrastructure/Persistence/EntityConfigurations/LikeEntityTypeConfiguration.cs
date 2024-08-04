@@ -13,9 +13,11 @@ namespace Posts.Infrastructure.Persistence.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Like> builder)
         {
-            builder.ToTable("Like");
-            builder.HasKey(o => o.Id);
-            builder.Property(o => o.Id).UseHiLo("likeseq");
+            builder.ToTable("Likes");
+            builder.HasKey(l => l.Id);
+            builder.Property(l => l.Id)
+                .ValueGeneratedOnAdd()
+                .HasDefaultValueSql("NEWSEQUENTIALID()");
 
             builder.Property<string>("Username")
                 .HasColumnType("VARCHAR(24)")

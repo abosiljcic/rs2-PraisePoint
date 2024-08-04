@@ -14,9 +14,11 @@ namespace Posts.Infrastructure.Persistence.EntityConfigurations
         public void Configure(EntityTypeBuilder<Comment> builder)
         {
             builder.ToTable("Comment");
-            builder.HasKey(o => o.Id);
-            builder.Property(o => o.Id).UseHiLo("commentseq");
-
+            builder.HasKey(c => c.Id);
+            builder.Property(c => c.Id)
+                .ValueGeneratedOnAdd()
+                .HasDefaultValueSql("NEWSEQUENTIALID()");
+            
             builder.Property<string>("Username")
                 .HasColumnType("VARCHAR(24)")
                 .HasColumnName("Username")
@@ -24,7 +26,7 @@ namespace Posts.Infrastructure.Persistence.EntityConfigurations
 
             builder.Property<string>("Text")
                 .HasColumnType("VARCHAR(512)")
-                .HasColumnName("Username")
+                .HasColumnName("Text")
                 .IsRequired();
         }
     }
