@@ -10,12 +10,14 @@ namespace Posts.Domain.Entities
     public class Like : EntityBase
     {
         public string Username { get; private set; }
+        public Guid PostId { get; set; }
 
         public Like() { }
 
-        public Like(string username)
+        public Like(string username, Guid postId)
         {
             Username = username ?? throw new ArgumentNullException(nameof(username));
+            PostId = postId;
         }
     }
 }

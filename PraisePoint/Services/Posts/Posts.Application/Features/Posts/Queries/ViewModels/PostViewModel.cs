@@ -11,7 +11,8 @@ public class PostViewModel
         public Guid CompanyId { get; set; }
         public int Points { get; set; }
         public string Description { get; set; }
-        public string ImageUrl { get; set; }
 
         public IEnumerable<CommentViewModel> PostComments { get; set; }
+        
+        public IEnumerable<LikeViewModel> PostLikes { get; set; }
 }

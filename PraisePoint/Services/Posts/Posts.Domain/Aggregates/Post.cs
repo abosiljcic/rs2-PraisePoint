@@ -48,7 +48,7 @@ namespace Posts.Domain.Aggregates
             var existingLikeForPost = PostLikes.SingleOrDefault(p => p.Username == username);
             if (existingLikeForPost is null)
             {
-                var like = new Like(username);
+                var like = new Like(username, this.Id);
                 _postLikes.Add(like);
             }
         }

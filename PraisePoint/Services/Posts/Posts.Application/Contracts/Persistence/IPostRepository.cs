@@ -12,6 +12,6 @@ namespace Posts.Application.Contracts.Persistence
         Task<IReadOnlyCollection<Post>> GetPostsByCompanyId(Guid companyId);
         Task<IReadOnlyCollection<Post>> GetPostsByUsername(string username);
         Task<IReadOnlyCollection<Post>> GetPostsByHashtagId(Guid hashtagId);
-        Task<Post> GetPostById(Guid id);
+        Task<Post?> GetPostById(Guid id);
     }
 }
