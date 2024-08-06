@@ -4,6 +4,12 @@ services:
   rewarddb:
     image: mongo
 
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+
   basket.api:
     image: ${DOCKER_REGISTRY-}basketapi
     build:
@@ -21,9 +27,6 @@ services:
     build:
       context: .
       dockerfile: Services/User/User.API/Dockerfile
-
-  mssql:
-    image: mcr.microsoft.com/mssql/server:2017-latest
 
   reward.api:
     image: ${DOCKER_REGISTRY-}rewardapi
