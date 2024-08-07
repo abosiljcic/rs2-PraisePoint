@@ -19,15 +19,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Reward", "Reward", "{740F4F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reward.API", "Services\Reward\Reward.API\Reward.API.csproj", "{0A25EDB8-0750-49CA-81FD-D3C1043047CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Posts.Domain", "Services\Posts\Posts.Domain\Posts.Domain.csproj", "{358A8614-01A5-4E9E-8E49-BB2DA42ADFC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Posts.Domain", "Services\Posts\Posts.Domain\Posts.Domain.csproj", "{358A8614-01A5-4E9E-8E49-BB2DA42ADFC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Posts.Application", "Services\Posts\Posts.Application\Posts.Application.csproj", "{8F1379B7-7E06-4A64-AF1F-3B874E0606E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Posts.Application", "Services\Posts\Posts.Application\Posts.Application.csproj", "{8F1379B7-7E06-4A64-AF1F-3B874E0606E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.API", "Services\Basket\Basket.API\Basket.API.csproj", "{B9A72C38-B8E9-4E06-B46F-E329784BF9FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basket.API", "Services\Basket\Basket.API\Basket.API.csproj", "{B9A72C38-B8E9-4E06-B46F-E329784BF9FF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{31334ED8-06C3-4366-9DCF-78BCED63E46F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Posts.Infrastructure", "Services\Posts\Posts.Infrastructure\Posts.Infrastructure.csproj", "{AE6D741A-5146-4B11-8356-C04136A9155F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Posts.Infrastructure", "Services\Posts\Posts.Infrastructure\Posts.Infrastructure.csproj", "{AE6D741A-5146-4B11-8356-C04136A9155F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{CB950FE5-9DAE-498D-80F1-AB3F17916E58}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.Messages", "Common\EventBus.Messages\EventBus.Messages.csproj", "{BC084A22-11ED-4485-B86C-E67DA9885449}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,6 +71,10 @@ Global
 		{AE6D741A-5146-4B11-8356-C04136A9155F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE6D741A-5146-4B11-8356-C04136A9155F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE6D741A-5146-4B11-8356-C04136A9155F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC084A22-11ED-4485-B86C-E67DA9885449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC084A22-11ED-4485-B86C-E67DA9885449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC084A22-11ED-4485-B86C-E67DA9885449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC084A22-11ED-4485-B86C-E67DA9885449}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +91,7 @@ Global
 		{B9A72C38-B8E9-4E06-B46F-E329784BF9FF} = {31334ED8-06C3-4366-9DCF-78BCED63E46F}
 		{31334ED8-06C3-4366-9DCF-78BCED63E46F} = {2CC46D83-111C-48CE-BFA3-B7114DBDF56B}
 		{AE6D741A-5146-4B11-8356-C04136A9155F} = {869F040D-D1DD-4028-94DA-19F3C2039B69}
+		{BC084A22-11ED-4485-B86C-E67DA9885449} = {CB950FE5-9DAE-498D-80F1-AB3F17916E58}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D02BF026-8B65-49A2-87EE-30AD0180065F}

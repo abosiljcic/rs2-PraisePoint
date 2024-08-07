@@ -20,6 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\Common\EventBus.Messages\EventBus.Messages.csproj" />
       <ProjectReference Include="..\Posts.Application\Posts.Application.csproj" />
       <ProjectReference Include="..\Posts.Infrastructure\Posts.Infrastructure.csproj" />
     </ItemGroup>
