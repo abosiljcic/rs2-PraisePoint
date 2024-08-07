@@ -9,6 +9,10 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Services/Posts/Posts.API/Posts.API.csproj", "Services/Posts/Posts.API/"]
+COPY ["Common/EventBus.Messages/EventBus.Messages.csproj", "Common/EventBus.Messages/"]
+COPY ["Services/Posts/Posts.Application/Posts.Application.csproj", "Services/Posts/Posts.Application/"]
+COPY ["Services/Posts/Posts.Domain/Posts.Domain.csproj", "Services/Posts/Posts.Domain/"]
+COPY ["Services/Posts/Posts.Infrastructure/Posts.Infrastructure.csproj", "Services/Posts/Posts.Infrastructure/"]
 RUN dotnet restore "./Services/Posts/Posts.API/Posts.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Posts/Posts.API"
