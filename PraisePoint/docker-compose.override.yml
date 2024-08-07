@@ -9,6 +9,24 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:/data/db
+ 
+  mssql:
+    container_name: mssql
+    environment:
+        - SA_PASSWORD=MATF12345678rs2
+        - ACCEPT_EULA=Y
+    restart: always
+    ports:
+        - "1433:1433"
+    volumes:
+        - mssql_data:/var/opt/mssql/data
+
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"    
 
   basket.api:
     container_name: basket.api
@@ -56,16 +74,6 @@ services:
     ports:
       - "8003:8080"
 
-  mssql:
-    container_name: mssql
-    environment:
-        - SA_PASSWORD=MATF12345678rs2
-        - ACCEPT_EULA=Y
-    restart: always
-    ports:
-        - "1433:1433"
-    volumes:
-        - mssql_data:/var/opt/mssql/data
 
   
 
