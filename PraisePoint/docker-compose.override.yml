@@ -83,14 +83,3 @@ services:
         - "1433:1433"
     volumes:
         - mssql_data:/var/opt/mssql/data
-
-  
-
-
-  products.api:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-    ports:
-      - "8080"
-
