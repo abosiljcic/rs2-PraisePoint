@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Posts.Application.Features.Posts.Queries.GetPostById;
 using Posts.Application.Features.Posts.Queries.GetPostsByCompanyId;
 using Posts.Application.Features.Posts.Queries.GetPostsByHashtagId;
+using Posts.Application.Features.Posts.Queries.GetPostsByReceiverUsername;
 using Posts.Application.Features.Posts.Queries.GetPostsByUsername;
 using Posts.Application.Features.Posts.Queries.ViewModels;
 
@@ -28,11 +29,20 @@ namespace Posts.API.Controllers
             return Ok(posts);
         }
 
-        [HttpGet("/username/{username}")]
+        [HttpGet("/sender-username/{senderUsername}")]
         [ProducesResponseType(typeof(IEnumerable<PostViewModel>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<PostViewModel>>> GetPostsByUsername(string username)
+        public async Task<ActionResult<IEnumerable<PostViewModel>>> GetPostsBySenderUsername(string senderUsername)
         {
-            var query = new GetPostsByUsernameQuery(username);
+            var query = new GetPostsBySenderUsernameQuery(senderUsername);
+            var posts = await _mediator.Send(query);
+            return Ok(posts);
+        }
+
+        [HttpGet("/receiver-username/{receiverUsername}")]
+        [ProducesResponseType(typeof(IEnumerable<PostViewModel>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<PostViewModel>>> GetPostsByReceiverUsername(string receiverUsername)
+        {
+            var query = new GetPostsByReceiverUsernameQuery(receiverUsername);
             var posts = await _mediator.Send(query);
             return Ok(posts);
         }

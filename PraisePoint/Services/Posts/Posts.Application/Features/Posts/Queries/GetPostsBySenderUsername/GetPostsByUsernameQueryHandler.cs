@@ -5,7 +5,7 @@ using Posts.Application.Features.Posts.Queries.ViewModels;
 
 namespace Posts.Application.Features.Posts.Queries.GetPostsByUsername;
 
-public class GetPostsByUsernameQueryHandler : IRequestHandler<GetPostsByUsernameQuery, List<PostViewModel>>
+public class GetPostsByUsernameQueryHandler : IRequestHandler<GetPostsBySenderUsernameQuery, List<PostViewModel>>
 {
     private readonly IPostRepository _repository;
     private readonly IPostViewModelFactory _factory;
@@ -16,9 +16,9 @@ public class GetPostsByUsernameQueryHandler : IRequestHandler<GetPostsByUsername
         _factory = factory ?? throw new ArgumentNullException(nameof(factory));
     }
 
-    public async Task<List<PostViewModel>> Handle(GetPostsByUsernameQuery request, CancellationToken cancellationToken)
+    public async Task<List<PostViewModel>> Handle(GetPostsBySenderUsernameQuery request, CancellationToken cancellationToken)
     {
-        var posts = await _repository.GetPostsByUsername(request.Username);
+        var posts = await _repository.GetPostsBySenderUsername(request.SenderUsername);
         return posts.Select(post => _factory.CreateViewModel(post)).ToList();
     }
 }

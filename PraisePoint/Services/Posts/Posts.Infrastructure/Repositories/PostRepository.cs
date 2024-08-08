@@ -20,10 +20,19 @@ public class PostRepository: RepositoryBase<Post>, IPostRepository
             .ToListAsync(); 
     }
 
-    public async Task<IReadOnlyCollection<Post>> GetPostsByUsername(string username)
+    public async Task<IReadOnlyCollection<Post>> GetPostsBySenderUsername(string senderUsername)
     {
         return await _dbContext.Set<Post>()
-            .Where(post => post.SenderUsername == username)
+            .Where(post => post.SenderUsername == senderUsername)
+            .Include(post => post.PostLikes)
+            .Include(post => post.PostComments)
+            .ToListAsync();
+    }
+
+    public async Task<IReadOnlyCollection<Post>> GetPostsByReceiverUsername(string receiverUsername)
+    {
+        return await _dbContext.Set<Post>()
+            .Where(post => post.ReceiverUsername == receiverUsername)
             .Include(post => post.PostLikes)
             .Include(post => post.PostComments)
             .ToListAsync();
@@ -42,4 +51,5 @@ public class PostRepository: RepositoryBase<Post>, IPostRepository
             .Include(post => post.PostComments)
             .SingleOrDefaultAsync();
     }
+
 }
