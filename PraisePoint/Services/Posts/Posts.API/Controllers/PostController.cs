@@ -115,5 +115,20 @@ namespace Posts.API.Controllers
 
             return Ok();
         }
+        
+        [HttpPost("/likes")]
+        [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ToggleLike([FromBody] ToggleLikeCommand command)
+        {
+            _logger.LogInformation($"Sending command: ToggleLikeCommand : ({command})");
+            var success = await _mediator.Send(command);
+            if(!success)
+            {
+                return BadRequest("Couldn't toggle like to a post.");
+            }
+
+            return Ok();
+        }
     }
 }
