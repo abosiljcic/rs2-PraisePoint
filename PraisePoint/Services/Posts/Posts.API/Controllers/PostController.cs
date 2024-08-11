@@ -10,7 +10,9 @@ using Posts.Application.Features.Posts.Queries.GetPostsByHashtagId;
 using Posts.Application.Features.Posts.Queries.GetPostsByUsername;
 using Posts.Application.Features.Posts.Queries.ViewModels;
 using Posts.Domain.Entities;
-using System.Security.Claims;
+using Posts.Application.Contracts.Infrastructure;
+using Posts.Application.Features.Posts.Commands.AddComment;
+using Posts.Application.Features.Posts.Commands.AddLikeCommand;
 
 namespace Posts.API.Controllers
 {
@@ -99,5 +101,19 @@ namespace Posts.API.Controllers
             return Accepted();
         }
 
+        [HttpPost("/comments")]
+        [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(void), StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> AddComment([FromBody] AddCommentCommand command)
+        {
+            _logger.LogInformation($"Sending command: AddCommentCommand : ({command})");
+            var created = await _mediator.Send(command);
+            if(!created)
+            {
+                return BadRequest("Couldn't add a new comment to a post.");
+            }
+
+            return Ok();
+        }
     }
 }
