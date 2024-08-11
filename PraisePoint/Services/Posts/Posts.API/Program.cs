@@ -1,9 +1,9 @@
+using System.Reflection;
 using MassTransit;
 using Posts.API.Extensions;
 using Posts.Application;
 using Posts.Infrastructure;
 using Posts.Infrastructure.Persistence;
-using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
