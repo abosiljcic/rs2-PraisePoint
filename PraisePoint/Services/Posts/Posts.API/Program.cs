@@ -1,3 +1,5 @@
+using System.Reflection;
+using MassTransit;
 using Posts.API.Extensions;
 using Posts.Application;
 using Posts.Infrastructure;
@@ -14,6 +16,16 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
+
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+// EventBus
+builder.Services.AddMassTransit(config =>
+{
+    config.UsingRabbitMq((_, cfg) =>
+    {
+        cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+    });
+});
 
 builder.MigrateDatabase<PostContext>((context, services) =>
 {
