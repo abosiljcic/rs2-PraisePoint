@@ -1,9 +1,4 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Posts.Application.Features.Posts.Commands.CreatePost
 {
@@ -20,6 +15,9 @@ namespace Posts.Application.Features.Posts.Commands.CreatePost
                 .NotEmpty().WithMessage("{ReceiverUsername} is required.")
                 .NotNull().WithMessage("{ReceiverUsername} can not be null.")
                 .MaximumLength(50).WithMessage("{ReceiverUsername} must not exceed 50 characters.");
+
+            RuleFor(post => post.SenderUsername)
+                .NotEqual(post => post.ReceiverUsername).WithMessage("Sender and receiver can't be the same person.");
 
             RuleFor(post => post.Points)
                 .NotEmpty().WithMessage("{Points} is required.")
