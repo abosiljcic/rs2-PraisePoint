@@ -51,6 +51,7 @@ namespace User.API.Controllers
             return Ok(_mapper.Map<UserDetailsDto>(user));
         }
 
+        [Authorize(Roles = "Admin,Employee")]
         [HttpGet("myInfo")]
         public async Task<IActionResult> GetCurrentUser()
         {
