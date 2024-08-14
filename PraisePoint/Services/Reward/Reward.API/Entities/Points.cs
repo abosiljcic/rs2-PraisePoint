@@ -9,9 +9,9 @@ namespace Reward.API.Entities
         //[BsonRepresentation(BsonType.ObjectId)]
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
-        public string user_id { get; set; }
+        public required string user_id { get; set; }
         public int received_points { get; set; }
         public int budget { get; set; }
-        public string company_id { get; set; }
+        public required string company_id { get; set; }
     }
 }
