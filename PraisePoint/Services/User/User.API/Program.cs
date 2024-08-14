@@ -16,6 +16,7 @@ builder.Services.ConfigureJWT(builder.Configuration);
 builder.Services.ConfigureMiscellaneousServices();
 
 builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
+builder.Services.AddTransient<IUserService, UserService>();
 
 var app = builder.Build();
 

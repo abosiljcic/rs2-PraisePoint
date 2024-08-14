@@ -8,6 +8,7 @@ using System.Text;
 using User.API.DTOs;
 using User.API.Entities;
 using User.API.Data;
+using System.Net.NetworkInformation;
 
 namespace User.API.Services
 {
