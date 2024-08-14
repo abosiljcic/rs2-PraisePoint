@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using User.API.Services;
 
 namespace User.API.Controllers
 {
@@ -16,12 +17,14 @@ namespace User.API.Controllers
         private readonly UserManager<Entities.User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IMapper _mapper;
+        private readonly IUserService _userService;
 
-        public UserController(UserManager<Entities.User> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper)
+        public UserController(UserManager<Entities.User> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper, IUserService userService)
         {
             _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
             _roleManager = roleManager ?? throw new ArgumentNullException(nameof(roleManager));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
         [Authorize(Roles = "Admin")]
@@ -46,6 +49,27 @@ namespace User.API.Controllers
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(user => user.UserName == username);
             return Ok(_mapper.Map<UserDetailsDto>(user));
+        }
+
+        [HttpGet("myInfo")]
+        public async Task<IActionResult> GetCurrentUser()
+        {
+            var user = await _userService.GetCurrentUserAsync(User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(new
+            {
+                user.Id,
+                user.UserName,
+                user.Email,
+                user.CompanyId,
+                user.FirstName,
+                user.LastName,
+                user.PhoneNumber
+            });
         }
     }
 }
