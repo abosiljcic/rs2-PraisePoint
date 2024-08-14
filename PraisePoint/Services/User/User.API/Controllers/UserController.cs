@@ -51,6 +51,21 @@ namespace User.API.Controllers
             return Ok(_mapper.Map<UserDetailsDto>(user));
         }
 
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetUserById(string userId)
+        {
+            // Find the user by the provided userId
+            var user = await _userService.GetUserById(userId);
+
+            if (user == null)
+            {
+                return NotFound($"User with ID {userId} was not found.");
+            }
+
+            // Optionally map the user to a DTO (Data Transfer Object) if needed
+            return Ok(user);
+        }
+
         [Authorize(Roles = "Admin,Employee")]
         [HttpGet("myInfo")]
         public async Task<IActionResult> GetCurrentUser()

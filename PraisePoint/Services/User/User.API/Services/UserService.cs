@@ -30,5 +30,10 @@ namespace User.API.Services
             return null;
         }
 
+        public async Task<Entities.User> GetUserById(string userId)
+        {
+            return await _dbContext.Users.FindAsync(userId);
+        }
+
     }
 }
