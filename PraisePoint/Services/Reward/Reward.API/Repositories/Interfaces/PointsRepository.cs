@@ -27,5 +27,18 @@ namespace Reward.API.Repositories.Interfaces
         {
             return await _context.AllPoints.Find(p => p.user_id == user_id).FirstOrDefaultAsync();
         }
+
+        public async Task<bool> UpdateUserAsync(Points user)
+        {
+            var filter = Builders<Points>.Filter.Eq(p => p.user_id, user.user_id);
+
+            var updateDefinition = Builders<Points>.Update
+                .Set(p => p.budget, user.budget)
+                .Set(p => p.received_points, user.received_points);
+
+            var result = await _context.AllPoints.UpdateOneAsync(filter, updateDefinition);
+
+            return result.ModifiedCount > 0;
+        }
     }
 }
