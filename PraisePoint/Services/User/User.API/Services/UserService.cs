@@ -41,6 +41,8 @@ namespace User.API.Services
                     .Select(s => s.PointsNumber)
                     .FirstOrDefaultAsync();
 
+            Console.WriteLine("PointsNum: " + pointsNumber);
+
             return pointsNumber;
         }
     }

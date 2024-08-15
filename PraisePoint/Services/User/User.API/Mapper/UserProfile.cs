@@ -11,6 +11,7 @@ namespace User.API.Mapper
                CreateMap<Entities.User, UserDetailsDto>().ReverseMap();
 
                CreateMap<NewUserDto, EventBus.Messages.Events.NewPointsEvent>().ReverseMap();
+               CreateMap<int, EventBus.Messages.Events.NewPointsEvent>().ReverseMap();
         }
     }
 }
