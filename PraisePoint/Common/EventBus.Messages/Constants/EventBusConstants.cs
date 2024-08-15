@@ -9,5 +9,6 @@ namespace EventBus.Messages.Constants
     public class EventBusConstants
     {
         public const string PointsAwardedQueue = "pointsawarded-queue";
+        public const string NewPointsQueue = "newpoints-queue";
     }
 }
