@@ -13,6 +13,22 @@ namespace Reward.API.Repositories.Interfaces
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        public Task<bool> AddAsync(Points newPoints)
+        {
+            try
+            {
+                // Dodajemo novi dokument u kolekciju
+                _context.AllPoints.InsertOne(newPoints);
+                return Task.FromResult(true);
+            }
+            catch (Exception ex)
+            {
+                // Logovanje greške ako je potrebno
+                Console.WriteLine($"An error occurred while adding points: {ex.Message}");
+                return Task.FromResult(false);
+            }
+        }
+
         public async Task<IEnumerable<Points>> GetAllPoints()
         {
             return await _context.AllPoints.Find(p => true).ToListAsync();

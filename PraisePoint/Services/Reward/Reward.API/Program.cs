@@ -31,6 +31,8 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddMassTransit(config =>
 {
     config.AddConsumer<AwardPointsConsumer>();
+    config.AddConsumer<NewPointsConsumer>();
+
     config.UsingRabbitMq((ctx, cfg) =>
     {
         cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
@@ -38,6 +40,12 @@ builder.Services.AddMassTransit(config =>
         {
             c.ConfigureConsumer<AwardPointsConsumer>(ctx);
         });
+
+        cfg.ReceiveEndpoint(EventBusConstants.NewPointsQueue, c =>
+        {
+            c.ConfigureConsumer<NewPointsConsumer>(ctx);
+        });
+
     });
 });
 
