@@ -24,7 +24,7 @@ namespace User.API.Controllers
         {
             _authService = authService ?? throw new ArgumentNullException(nameof(authService));
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
-            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(logger));
+            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
