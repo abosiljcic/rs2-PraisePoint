@@ -34,6 +34,14 @@ namespace User.API.Services
         {
             return await _dbContext.Users.FindAsync(userId);
         }
+        public async Task<int> GetCompanyPointsNumber(Guid companyId)
+        {
+            var pointsNumber = await _dbContext.Companies
+                    .Where(s => s.Id == companyId)
+                    .Select(s => s.PointsNumber)
+                    .FirstOrDefaultAsync();
 
+            return pointsNumber;
+        }
     }
 }
