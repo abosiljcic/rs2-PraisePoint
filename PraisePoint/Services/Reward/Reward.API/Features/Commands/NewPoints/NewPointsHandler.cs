@@ -20,16 +20,8 @@ namespace Reward.API.Features.Commands.NewPoints
 
         public async Task<bool> Handle(NewPointsCommand request, CancellationToken cancellationToken)
         {
-            /*var dto = new NewPointsDto
-            {
-                UserId = request.UserId,
-                CompanyId = request.CompanyId,
-                CompanyBudget = request.CompanyBudget
-            };*/
-
-            //var newPoints = _mapper.Map<Points>(dto);
-            var newPointsEvent = _mapper.Map<NewPointsEvent>(request);
-            var newPoints = _mapper.Map<Points>(newPointsEvent);
+            //var newPointsEvent = _mapper.Map<NewPointsEvent>(request);
+            var newPoints = _mapper.Map<Points>(request);
             
             var result = await _pointsRepository.AddAsync(newPoints);
             
