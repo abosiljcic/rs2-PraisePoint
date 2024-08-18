@@ -19,8 +19,8 @@ namespace Reward.API.Features.Commands.UpdatePoints
         public async Task<bool> Handle(UpdatePointsCommand request, CancellationToken cancellationToken)
         {
             var awardPointsEvent = _mapper.Map<AwardPointsEvent>(request);
-            var sender = await _pointsRepository.GetPointsForUserById(awardPointsEvent.SenderId);
-            var receiver = await _pointsRepository.GetPointsForUserById(awardPointsEvent.ReceiverId);
+            var sender = await _pointsRepository.GetPointsForUserByUsername(awardPointsEvent.SenderUsername);
+            var receiver = await _pointsRepository.GetPointsForUserByUsername(awardPointsEvent.ReceiverUsername);
 
             if (sender == null || receiver == null)
             {
@@ -28,13 +28,13 @@ namespace Reward.API.Features.Commands.UpdatePoints
             }
 
             //fix
-            if (sender.budget < request.Points)
+            if (sender.Budget < request.Points)
             {
                 return false;
             }
 
-            sender.budget -= awardPointsEvent.Points;
-            receiver.received_points += awardPointsEvent.Points;
+            sender.Budget -= awardPointsEvent.Points;
+            receiver.ReceivedPoints += awardPointsEvent.Points;
 
             var updateSenderResult = await _pointsRepository.UpdateUserAsync(sender);
             var updateReceiverResult = await _pointsRepository.UpdateUserAsync(receiver);

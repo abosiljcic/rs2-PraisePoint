@@ -36,21 +36,21 @@ namespace Reward.API.Repositories.Interfaces
 
         public async Task<IEnumerable<Points>> GetPointsForCompanyById(string company_id)
         {
-            return await _context.AllPoints.Find(p => p.company_id == company_id).ToListAsync();
+            return await _context.AllPoints.Find(p => p.CompanyId == company_id).ToListAsync();
         }
 
-        public async Task<Points> GetPointsForUserById(string user_id)
+        public async Task<Points> GetPointsForUserByUsername(string username)
         {
-            return await _context.AllPoints.Find(p => p.user_id == user_id).FirstOrDefaultAsync();
+            return await _context.AllPoints.Find(p => p.UserName == username).FirstOrDefaultAsync();
         }
 
         public async Task<bool> UpdateUserAsync(Points user)
         {
-            var filter = Builders<Points>.Filter.Eq(p => p.user_id, user.user_id);
+            var filter = Builders<Points>.Filter.Eq(p => p.UserName, user.UserName);
 
             var updateDefinition = Builders<Points>.Update
-                .Set(p => p.budget, user.budget)
-                .Set(p => p.received_points, user.received_points);
+                .Set(p => p.Budget, user.Budget)
+                .Set(p => p.ReceivedPoints, user.ReceivedPoints);
 
             var result = await _context.AllPoints.UpdateOneAsync(filter, updateDefinition);
 
