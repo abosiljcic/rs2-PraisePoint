@@ -35,6 +35,13 @@ services:
       context: .
       dockerfile: Services/Reward/Reward.API/Dockerfile
 
+  ordering.api:
+    image: ${DOCKER_REGISTRY-}orderingapi
+    build:
+      context: .
+      dockerfile: Services/Ordering/Ordering.API/Dockerfile
+
 volumes:
   mssql_data:
   mongo_data:
+
