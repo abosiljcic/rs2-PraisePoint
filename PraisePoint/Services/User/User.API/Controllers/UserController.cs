@@ -74,7 +74,7 @@ namespace User.API.Controllers
         }
 
         [Authorize(Roles = "Admin,Employee")]
-        [HttpGet("myInfo")]
+        [HttpGet("[action]")]
         public async Task<IActionResult> GetCurrentUser()
         {
             var user = await _userService.GetCurrentUserAsync(User);
@@ -95,6 +95,7 @@ namespace User.API.Controllers
             });
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("[action]")]
         public async Task<IActionResult> GetPointsNumber(Guid companyId)
         {
@@ -110,5 +111,6 @@ namespace User.API.Controllers
 
             return Accepted();
         }
+
     }
 }
