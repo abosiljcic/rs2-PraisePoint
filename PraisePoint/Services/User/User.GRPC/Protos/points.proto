@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option csharp_namespace = "User.GRPC.Protos";
+
+service PointsProtoService {
+  rpc GetPoints (GetPointsRequest) returns (GetPointsResponse); 
+}
+
+message GetPointsRequest {
+  string companyId = 1;
+}
+
+message GetPointsResponse {
+  int32 pointsNumber = 1;
+}
