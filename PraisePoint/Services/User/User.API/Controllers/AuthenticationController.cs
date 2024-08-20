@@ -35,12 +35,14 @@ namespace User.API.Controllers
         {
             var pointsNumber = await _userService.GetCompanyPointsNumber(newUser.CompanyId);
 
+            Console.WriteLine("Points num: " + pointsNumber);
+
             if (pointsNumber == null)
             {
                 return BadRequest("Invalid CompanyId.");
             }
 
-            var userDetails = new NewUserDto
+           /* var userDetails = new NewUserDto
             {
                 FirstName = newUser.FirstName,
                 LastName = newUser.LastName,
@@ -49,14 +51,14 @@ namespace User.API.Controllers
                 UserName = newUser.UserName,
                 PhoneNumber = newUser.PhoneNumber,
                 ImageUrl = newUser.ImageUrl,
-                PointsNumber = newUser.PointsNumber,
+                PointsNumber = pointsNumber,
                 Password = newUser.Password
-            };
+            };*/
 
-            var eventMessage = _mapper.Map<NewPointsEvent>(userDetails);
+            var eventMessage = _mapper.Map<NewPointsEvent>(pointsNumber);
             await _publishEndpoint.Publish(eventMessage);
 
-            return await RegisterNewUserWithRoles(userDetails, new string[] { "Employee" });
+            return await RegisterNewUserWithRoles(newUser, new string[] { "Employee" });
         }
 
         [HttpPost("[action]")]

@@ -24,7 +24,5 @@ namespace User.API.DTOs
 
         [Required(ErrorMessage = "CompanyId is required")]
         public Guid CompanyId { get; set; }
-
-        public int PointsNumber { get; set; }
     }
 }
