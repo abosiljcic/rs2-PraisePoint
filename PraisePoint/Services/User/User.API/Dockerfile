@@ -8,12 +8,13 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["../../Common/EventBus.Messages/EventBus.Messages.csproj", "./../../Common/EventBus.Messages/"]
-COPY ["../User.API/User.API.csproj", "./../User.API/"]
+COPY ["Services/User/User.API/User.API.csproj", "Services/User/User.API/"]
+COPY ["Common/EventBus.Messages/EventBus.Messages.csproj", "Common/EventBus.Messages/"]
 RUN dotnet restore "./Services/User/User.API/User.API.csproj"
 COPY . .
 WORKDIR "/src/Services/User/User.API"
 RUN dotnet build "./User.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release

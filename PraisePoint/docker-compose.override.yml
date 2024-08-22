@@ -53,14 +53,11 @@ services:
 
 
   user.api:
-    build:
-      context: ./Services/User/User.API
-      dockerfile: Dockerfile
     container_name: user.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-      - "ConnectionString:UserConnectionString=Server=mssql;Database=UserDb;User Id=sa;Password=MATF12345678rs2;"
+      - "ConnectionStrings:UserConnectionString=Server=mssql;Database=UserDb;User Id=sa;Password=MATF12345678rs2;"
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672" 
     depends_on:
       - mssql
@@ -69,9 +66,6 @@ services:
       - "8002:8080"
 
   user.grpc:
-    build:
-      context: ./Services/User/User.GRPC
-      dockerfile: Dockerfile
     container_name: user.grpc
     depends_on:
       - mssql
@@ -80,7 +74,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080 
-      - "DatabaseSettings:ConnectionString:UserConnectionString=Server=mssql;Database=UserDb;User Id=sa;Password=MATF12345678rs2;"
+      - "ConnectionStrings:UserConnectionString=Server=mssql;Database=UserDb;User Id=sa;Password=MATF12345678rs2;"
   
 
   reward.api:

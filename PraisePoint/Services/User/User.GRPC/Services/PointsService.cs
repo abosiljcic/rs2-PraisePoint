@@ -12,7 +12,7 @@ namespace User.GRPC.Services
         private readonly ILogger<PointsService> _logger;
         public PointsService(IUserService userService, IMapper mapper, ILogger<PointsService> logger)
         {
-            _userService = _userService ?? throw new ArgumentNullException(nameof(_userService));
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }

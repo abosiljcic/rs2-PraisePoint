@@ -1,23 +1,25 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /src
+#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
 
-# Copy only the necessary files to the build context
-COPY User.GRPC.csproj ./User.GRPC/
-COPY ["../User.API/User.API.csproj", "./User.API/"]
-
-# Run dotnet restore
-RUN dotnet restore ./User.GRPC/User.GRPC.csproj
-
-# Copy the remaining files
-COPY . .
-
-# Build and publish
-WORKDIR /src/User.GRPC
-RUN dotnet build User.GRPC.csproj -c Release -o /app/build
-RUN dotnet publish User.GRPC.csproj -c Release -o /app/publish /p:UseAppHost=false
-
-# Final image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER app
 WORKDIR /app
-COPY --from=build /app/publish .
+EXPOSE 8080
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["Services/User/User.GRPC/User.GRPC.csproj", "Services/User/User.GRPC/"]
+COPY ["Services/User/User.API/User.API.csproj", "Services/User/User.API/"]
+RUN dotnet restore "./Services/User/User.GRPC/User.GRPC.csproj"
+COPY . .
+WORKDIR "/src/Services/User/User.GRPC"
+RUN dotnet build "./User.GRPC.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./User.GRPC.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "User.GRPC.dll"]
