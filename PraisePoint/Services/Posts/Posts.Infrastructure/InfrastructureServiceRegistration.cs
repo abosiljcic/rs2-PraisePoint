@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,7 +29,8 @@ public static class InfrastructureServiceRegistration
         services.AddScoped<IUserService, UserService>();
         services.AddHttpClient<IUserService, UserService>(client =>
         {
-            client.BaseAddress = new Uri("http://localhost:5154");
+            client.BaseAddress = new Uri(configuration.GetConnectionString("UserServiceUriString") ?? string.Empty);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", configuration.GetSection("JwtTokens")["UserService"]);
         });
 
         return services;
