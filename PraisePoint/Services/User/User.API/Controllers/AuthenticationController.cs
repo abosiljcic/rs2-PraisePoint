@@ -42,20 +42,14 @@ namespace User.API.Controllers
                 return BadRequest("Invalid CompanyId.");
             }
 
-           /* var userDetails = new NewUserDto
+            var userDetails = new NewUserDto
             {
-                FirstName = newUser.FirstName,
-                LastName = newUser.LastName,
-                CompanyId = newUser.CompanyId,
-                Email = newUser.Email,
                 UserName = newUser.UserName,
-                PhoneNumber = newUser.PhoneNumber,
-                ImageUrl = newUser.ImageUrl,
                 PointsNumber = pointsNumber,
-                Password = newUser.Password
-            };*/
+                CompanyId = newUser.CompanyId
+            };
 
-            var eventMessage = _mapper.Map<NewPointsEvent>(pointsNumber);
+            var eventMessage = _mapper.Map<NewPointsEvent>(userDetails);
             await _publishEndpoint.Publish(eventMessage);
 
             return await RegisterNewUserWithRoles(newUser, new string[] { "Employee" });
