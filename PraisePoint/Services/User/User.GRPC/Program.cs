@@ -3,6 +3,7 @@ using User.GRPC.Services;
 using User.API.Services;
 using Microsoft.EntityFrameworkCore;
 using User.API.Data;
+using User.API.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,7 @@ builder.Services.AddDbContext<UserContext>(options =>
 builder.Services.AddGrpc();
 builder.Services.AddAutoMapper(configuration =>
 {
-    configuration.CreateMap<int, GetPointsResponse>().ReverseMap();
+    configuration.CreateMap<Company, GetPointsResponse>().ReverseMap();
 });
 
 var app = builder.Build();
