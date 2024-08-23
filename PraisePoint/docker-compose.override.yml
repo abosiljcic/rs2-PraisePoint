@@ -45,9 +45,14 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-      - "ConnectionString:PostConnectionString=Server=mssql;Database=PostDb;User Id=sa;Password=MATF12345678rs2;"
+      - "ConnectionStrings:PostConnectionString=Server=mssql;Database=PostDb;User Id=sa;Password=MATF12345678rs2;TrustServerCertificate=True;Encrypt=False;"
+      - "ConnectionStrings:UserServiceUriString=http://user.api:8080/"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
+      - rabbitmq
       - mssql
+      - user.api
+      - reward.api
     ports:
       - "8004:8080" 
 
@@ -57,8 +62,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-      - "ConnectionStrings:UserConnectionString=Server=mssql;Database=UserDb;User Id=sa;Password=MATF12345678rs2;"
-      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"  
+      - "ConnectionStrings:UserConnectionString=Server=mssql;Database=UserDb;User Id=sa;Password=MATF12345678rs2;TrustServerCertificate=True;Encrypt=False;"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
       - mssql
       - rabbitmq

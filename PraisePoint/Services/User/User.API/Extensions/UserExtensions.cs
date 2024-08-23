@@ -15,7 +15,14 @@ namespace User.API.Extensions
     {
         public static IServiceCollection ConfigurePersistence(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<UserContext>(options => { options.UseSqlServer(configuration.GetConnectionString("UserConnectionString")); });
+            services.AddDbContext<UserContext>(options =>
+            {
+                options.UseSqlServer(configuration.GetConnectionString("UserConnectionString"), builder =>
+                {
+                    builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+                });
+            });
+
             return services;
         }
 
