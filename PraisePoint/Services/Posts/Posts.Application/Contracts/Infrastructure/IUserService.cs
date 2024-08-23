@@ -4,5 +4,5 @@ namespace Posts.Application.Contracts.Infrastructure;
 
 public interface IUserService
 {
-    Task<UserInfo?> GetUserInfo(string username);
+    Task<UserInfoDto?> GetUserInfo(string username);
 }

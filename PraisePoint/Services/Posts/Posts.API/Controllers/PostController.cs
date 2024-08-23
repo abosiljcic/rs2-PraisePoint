@@ -95,7 +95,7 @@ namespace Posts.API.Controllers
                 return BadRequest();
             }
 
-            _logger.LogInformation("Sending HTTP GET request to Reward service.");
+            _logger.LogInformation("Sending HTTP GET request to User service.");
             var user = await _userService.GetUserInfo(command.SenderUsername);
             if (user == null)
             {
