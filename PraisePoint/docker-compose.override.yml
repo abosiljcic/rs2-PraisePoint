@@ -47,6 +47,7 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - "ConnectionStrings:PostConnectionString=Server=mssql;Database=PostDb;User Id=sa;Password=MATF12345678rs2;TrustServerCertificate=True;Encrypt=False;"
       - "ConnectionStrings:UserServiceUriString=http://user.api:8080/"
+      - "ConnectionStrings:RewardServiceUriString=http://reward.api:8080/"
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
       - rabbitmq
