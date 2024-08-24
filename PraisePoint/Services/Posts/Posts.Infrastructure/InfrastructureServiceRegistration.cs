@@ -32,6 +32,10 @@ public static class InfrastructureServiceRegistration
             client.BaseAddress = new Uri(configuration.GetConnectionString("UserServiceUriString") ?? string.Empty);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", configuration.GetSection("JwtTokens")["UserService"]);
         });
+        services.AddHttpClient<IRewardService, RewardService>(client =>
+        {
+            client.BaseAddress = new Uri(configuration.GetConnectionString("RewardServiceUriString") ?? string.Empty);
+        });
 
         return services;
     }
