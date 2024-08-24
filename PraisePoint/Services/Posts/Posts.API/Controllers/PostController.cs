@@ -82,7 +82,6 @@ namespace Posts.API.Controllers
             return Ok(post);
         }
 
-        // api/v1/post  kreiranje posta i asinhrono slanje reward servisu 
         [HttpPost]
         [ProducesResponseType(typeof(void), StatusCodes.Status202Accepted)]
         [ProducesResponseType(typeof(void), StatusCodes.Status400BadRequest)]
@@ -90,17 +89,8 @@ namespace Posts.API.Controllers
         {
             _logger.LogInformation("Sending command: CreatePostCommand : ({@Command})", command);
             var postId = await _mediator.Send(command);
-            if(postId == null)
-            {
-                return BadRequest();
-            }
-
-            _logger.LogInformation("Sending HTTP GET request to User service.");
-            var user = await _userService.GetUserInfo(command.SenderUsername);
-            if (user == null)
-            {
-                _logger.LogWarning("Sender user does not exist.");
-            }
+            
+            if(postId == Guid.Empty) return BadRequest("User tried to send more points than they have.");
 
             var awardPoints = new AwardPoints(command.SenderUsername, command.ReceiverUsername, command.Points);
             var eventMessage = _mapper.Map<AwardPointsEvent>(awardPoints);
