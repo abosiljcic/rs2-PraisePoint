@@ -1,14 +1,23 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
+import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-
+import { AppComponent } from './app.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { AuthenticationInterceptor } from './shared/interceptors/authentication.interceptor.ts.interceptor';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    AppComponent
+  ],
   imports: [
-    CommonModule,
-    AppRoutingModule
-  ]
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule
+  ],
+  
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true}
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
