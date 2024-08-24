@@ -7,7 +7,7 @@ namespace Reward.API.Data
     {
         public RewardContext()
         { 
-            var client = new MongoClient("mongodb://localhost:27017");
+            var client = new MongoClient("mongodb://rewarddb:27017");
             var database = client.GetDatabase("RewardDB");
 
             AllPoints = database.GetCollection<Points>("AllPoints");
