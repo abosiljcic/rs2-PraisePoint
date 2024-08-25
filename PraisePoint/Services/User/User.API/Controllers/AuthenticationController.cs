@@ -52,8 +52,16 @@ namespace User.API.Controllers
                 PointsNumber = newUser.PointsNumber,
                 Password = newUser.Password
             };
+            
+            var initPointsDto = new InitPointsDto
+            {
+                CompanyId = newUser.CompanyId,
+                CompanyBudget = newUser.PointsNumber,
+                UserName = newUser.UserName,
+            };
 
-            var eventMessage = _mapper.Map<NewPointsEvent>(userDetails);
+            var eventMessage = _mapper.Map<NewPointsEvent>(initPointsDto);
+            _logger.LogInformation($"Event message: {eventMessage.UserName}, {eventMessage.CompanyBudget}");
             await _publishEndpoint.Publish(eventMessage);
 
             return await RegisterNewUserWithRoles(userDetails, new string[] { "Employee" });
