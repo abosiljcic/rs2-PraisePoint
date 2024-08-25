@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginFormComponent } from './feature-authentication/login-form/login-form/login-form.component';
 import { UserProfileComponent } from './feature-user-info/user-profile/user-profile.component';
 import { LogoutComponent } from './feature-authentication/logout/logout/logout.component';
+import { RegisterFormComponent } from './feature-authentication/register-form/register-form.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { LogoutComponent } from './feature-authentication/logout/logout/logout.c
     UserComponent,
     LoginFormComponent,
     UserProfileComponent,
-    LogoutComponent
+    LogoutComponent,
+    RegisterFormComponent
   ],
   imports: [
     CommonModule,

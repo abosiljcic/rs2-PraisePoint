@@ -12,6 +12,8 @@ import { UserFacadeService } from './user-facade.service';
 import { ILogoutRequest } from '../models/logout-request';
 import { IRefreshTokenRequest } from '../models/refresh-token-request';
 import { IRefreshTokenResponse } from '../models/refresh-token-response';
+import { IRegisterRequest } from '../models/register-request';
+import { HttpResponse } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -71,6 +73,24 @@ export class AuthenticationFacadeService {
         return of(false);
       })
     );
+  }
+
+  public register(firstName: string, lastName: string, userName: string, password: string, imageUrl: "", email: string, 
+                  phoneNumber: string, companyId: string
+  ): Observable<boolean> {
+    const request: IRegisterRequest = { firstName, lastName, userName, password, imageUrl, email,  phoneNumber, companyId };
+
+    return this.authenticationService.register(request).pipe(
+      map((response: HttpResponse<Object> | null) => {
+        return true;
+    }),
+      catchError((error) => {
+        console.error('Registration failed', error);
+        this.appStateService.clearAppState();
+        return of(false);
+      })
+    );
+  
   }
 
   public refreshToken(): Observable<string | null> {

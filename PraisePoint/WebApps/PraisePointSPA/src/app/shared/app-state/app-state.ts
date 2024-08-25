@@ -9,6 +9,9 @@ export interface IAppState {
   firstName?: string;
   lastName?: string;
   userId?: string;
+  password?: string;
+  phoneNumber?: string;
+  companyId?: string;
 
   hasRole(role: Role): boolean;
   clone(): IAppState;
@@ -24,6 +27,9 @@ export class AppState implements IAppState {
   public firstName?: string;
   public lastName?: string;
   public userId?: string;
+  public password?: string;
+  public phoneNumber?: string;
+  public companyId?: string;
 
   public constructor();
   public constructor(
@@ -34,13 +40,16 @@ export class AppState implements IAppState {
     roles?: Role | Role[],
     firstName?: string,
     lastName?: string,
-    userId?: string
+    userId?: string,
+    password?: string,
+    phoneNumber?: string,
+    companyId?: string
   );
 
   public constructor(...args: any[]) {
     if (args.length === 0) {
       return;
-    } else if (args.length === 8) {
+    } else if (args.length === 11) {
       this.accessToken = args[0];
       this.refreshToken = args[1];
       this.username = args[2];
@@ -49,6 +58,9 @@ export class AppState implements IAppState {
       this.firstName = args[5];
       this.lastName = args[6];
       this.userId = args[7];
+      this.password = args[8];
+      this.phoneNumber = args[9];
+      this.companyId = args[10];
     }
   }
 
