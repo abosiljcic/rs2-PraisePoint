@@ -1,5 +1,7 @@
+using System.Reflection;
 using User.API.Extensions;
 using User.API.Services;
+using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,18 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//Automapper
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+// EventBus
+builder.Services.AddMassTransit(config =>
+{
+    config.UsingRabbitMq((_, cfg) =>
+    {
+        cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+    });
+});
 
 builder.Services.ConfigurePersistence(builder.Configuration);
 builder.Services.ConfigureIdentity();

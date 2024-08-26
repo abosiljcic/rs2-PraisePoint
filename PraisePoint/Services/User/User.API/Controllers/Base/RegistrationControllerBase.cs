@@ -40,7 +40,7 @@ namespace User.API.Controllers.Base
             foreach (var role in roles)
             {
                 var roleExists = await _roleManager.RoleExistsAsync(role);
-                Console.WriteLine("ROle exists: " + roleExists);
+                Console.WriteLine("Role exists: " + roleExists);
                 if (roleExists)
                 {
                     await _userManager.AddToRoleAsync(user, role);

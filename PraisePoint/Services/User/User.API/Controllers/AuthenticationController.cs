@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using EventBus.Messages.Events;
+using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +15,17 @@ namespace User.API.Controllers
     public class AuthenticationController : RegistrationControllerBase
     {
         private readonly IAuthenticationService _authService;
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public AuthenticationController(ILogger<AuthenticationController> logger, IMapper mapper, UserManager<Entities.User> userManager, RoleManager<IdentityRole> roleManager, IAuthenticationService authService)
+        public AuthenticationController(ILogger<AuthenticationController> logger, IMapper mapper, UserManager<Entities.User> userManager, RoleManager<IdentityRole> roleManager, IAuthenticationService authService, IUserService userService, IPublishEndpoint publishEndpoint)
             : base(logger, mapper, userManager, roleManager)
         {
             _authService = authService ?? throw new ArgumentNullException(nameof(authService));
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(publishEndpoint));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         [HttpPost("[action]")]
@@ -25,7 +33,30 @@ namespace User.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RegisterEmployee([FromBody] NewUserDto newUser)
         {
-            return await RegisterNewUserWithRoles(newUser, new string[] { "Employee" });
+            var pointsNumber = await _userService.GetCompanyPointsNumber(newUser.CompanyId);
+
+            if (pointsNumber == null)
+            {
+                return BadRequest("Invalid CompanyId.");
+            }
+
+            var userDetails = new NewUserDto
+            {
+                FirstName = newUser.FirstName,
+                LastName = newUser.LastName,
+                CompanyId = newUser.CompanyId,
+                Email = newUser.Email,
+                UserName = newUser.UserName,
+                PhoneNumber = newUser.PhoneNumber,
+                ImageUrl = newUser.ImageUrl,
+                PointsNumber = newUser.PointsNumber,
+                Password = newUser.Password
+            };
+
+            var eventMessage = _mapper.Map<NewPointsEvent>(userDetails);
+            await _publishEndpoint.Publish(eventMessage);
+
+            return await RegisterNewUserWithRoles(userDetails, new string[] { "Employee" });
         }
 
         [HttpPost("[action]")]
