@@ -52,9 +52,12 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/mdb.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/mdb.umd.min.js"
+            ]
           },
           "configurations": {
             "production": {
