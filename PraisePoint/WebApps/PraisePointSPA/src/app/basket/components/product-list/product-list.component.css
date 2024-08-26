@@ -1,0 +1,23 @@
+.card {
+    margin-bottom: 1rem;
+  }
+  
+  .card-img-top {
+    object-fit: cover; 
+  }
+  
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .row {
+    margin-left: -0.5rem; 
+    margin-right: -0.5rem;
+  }
+  
+  .col {
+    padding-left: 0.5rem; 
+    padding-right: 0.5rem;
+  }
+  
