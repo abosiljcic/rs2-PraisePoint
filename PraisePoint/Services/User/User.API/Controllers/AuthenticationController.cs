@@ -33,21 +33,23 @@ namespace User.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RegisterEmployee([FromBody] NewUserDto newUser)
         {
-            var pointsNumber = await _userService.GetCompanyPointsNumber(newUser.CompanyId);
+            var company = await _userService.GetCompanyPointsNumber(newUser.CompanyId);
 
-            Console.WriteLine("Points num: " + pointsNumber);
+            Console.WriteLine("Points num: " + company.PointsNumber);
 
-            if (pointsNumber == null)
+            if (company == null)
             {
                 return BadRequest("Invalid CompanyId.");
             }
 
             var userDetails = new NewUserDto
             {
-                UserName = newUser.UserName,
-                PointsNumber = pointsNumber,
-                CompanyId = newUser.CompanyId
+                PointsNumber = company.PointsNumber,
+                CompanyId = newUser.CompanyId,
+                UserName = newUser.UserName
             };
+
+            Console.WriteLine("userDetails: " + userDetails.PointsNumber);
 
             var eventMessage = _mapper.Map<NewPointsEvent>(userDetails);
             await _publishEndpoint.Publish(eventMessage);

@@ -1,16 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using User.API.Data;
+using User.API.Entities;
 
 namespace User.API.Services
 {
     public class UserService : IUserService
     {
         private readonly UserContext _dbContext;
+        private readonly IMapper _mapper;
 
-        public UserService(UserContext dbContext)
+        public UserService(UserContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         public async Task<Entities.User> GetCurrentUserAsync(ClaimsPrincipal principal)
@@ -34,14 +38,13 @@ namespace User.API.Services
         {
             return await _dbContext.Users.FindAsync(userId);
         }
-        public async Task<int> GetCompanyPointsNumber(Guid companyId)
+        public async Task<Company> GetCompanyPointsNumber(Guid companyId)
         {
-            var pointsNumber = await _dbContext.Companies
-                    .Where(s => s.Id == companyId)
-                    .Select(s => s.PointsNumber)
-                    .FirstOrDefaultAsync();
+            var company = await _dbContext.Companies
+                                .Where(s => s.Id == companyId)
+                                .FirstOrDefaultAsync<Company>();
 
-            return pointsNumber;
+            return _mapper.Map<Company>(company);
         }
 
         public async Task<List<Entities.Company>> GetCompanies()
