@@ -4,17 +4,23 @@ import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AuthenticationInterceptor } from './shared/interceptors/authentication.interceptor.ts.interceptor';
+import { RouterModule } from '@angular/router';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { PostProfileComponent } from './components/post-profile/post-profile.component';
 import { NavigationComponent } from "./navigation/navigation.component";
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    //PostProfileComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    HomePageComponent,
+    PostProfileComponent 
     FontAwesomeModule,
     NavigationComponent
 ],
@@ -24,5 +30,5 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+
+export class AppModule { }
