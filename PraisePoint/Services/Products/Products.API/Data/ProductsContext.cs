@@ -1,13 +1,14 @@
-﻿using MongoDB.Driver;
+﻿using Microsoft.Extensions.Configuration;
+using MongoDB.Driver;
 using Products.API.Entities;
 
 namespace Products.API.Data
 {
     public class ProductsContext : IProductsContext
     {
-        public ProductsContext() 
+        public ProductsContext(IConfiguration configuration)
         { 
-            var client = new MongoClient("mongodb://localhost:27017");
+            var client = new MongoClient(configuration.GetValue<string>("DatabaseSettings:ConnectionSettings"));
             var database = client.GetDatabase("ProductsDB");
 
             Products = database.GetCollection<Product>("Products");
