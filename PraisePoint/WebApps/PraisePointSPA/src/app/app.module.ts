@@ -7,6 +7,8 @@ import { AuthenticationInterceptor } from './shared/interceptors/authentication.
 import { RouterModule } from '@angular/router';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { PostProfileComponent } from './components/post-profile/post-profile.component';
+import { NavigationComponent } from "./navigation/navigation.component";
+import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -19,11 +21,14 @@ import { PostProfileComponent } from './components/post-profile/post-profile.com
     HttpClientModule,
     HomePageComponent,
     PostProfileComponent 
-  ],
+    FontAwesomeModule,
+    NavigationComponent
+],
   
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthenticationInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
