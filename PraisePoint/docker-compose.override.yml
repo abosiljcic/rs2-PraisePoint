@@ -1,6 +1,13 @@
 version: '3.4'
 
 services:
+  productsdb:
+    container_name: productsdb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:\data\db
 
   rewarddb:
     container_name: rewarddb   
@@ -83,7 +90,14 @@ services:
       - rabbitmq
     ports:
       - "8003:8080"
-
-
-  
+      
+  products.api:
+    container_name: products.api
+    environment:
+      -  ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionSettings=mongodb://productsdb:27017"
+    depends_on:
+      - productsdb
+    ports:
+      - "8005:8080"
 
