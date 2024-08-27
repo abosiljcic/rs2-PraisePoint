@@ -5,13 +5,12 @@ namespace Reward.API.Entities
 {
     public class Points
     {
-        [BsonElement("user_id")]
-        //[BsonRepresentation(BsonType.ObjectId)]
+        [BsonElement("UserName")]
         [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string user_id { get; set; }
-        public int received_points { get; set; }
-        public int budget { get; set; }
-        public string company_id { get; set; }
+        [BsonRepresentation(BsonType.String)]
+        public required string UserName { get; set; }
+        public int ReceivedPoints { get; set; }
+        public int Budget { get; set; }
+        public required string CompanyId { get; set; }
     }
 }

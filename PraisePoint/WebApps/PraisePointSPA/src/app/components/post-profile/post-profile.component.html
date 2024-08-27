@@ -1,0 +1,124 @@
+<div class="card gedf-card">
+  <div class="card-header">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex justify-content-between align-items-center">
+        <div class="mr-2">
+          <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+        </div>
+        <div class="ml-2">
+          <div class="h5 m-0"> {{ post.senderUsername }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div>
+      <a class="card-link" href="#">
+        <h5 class="card-title"> &#64;{{  post.receiverUsername }}</h5>
+      </a>
+      <p>{{ post.points }}</p>
+    </div>
+    <p class="card-text"> {{ post.description }} </p>
+  </div>
+  
+  <hr class="mb-1 opacity-1" />
+
+  <div class="row text-center fw-bold">
+    <div class="col">
+      <a href="#" class="text-body text-opacity-50 text-decoration-none d-block p-2"> <i class="far fa-thumbs-up me-1 d-block d-sm-inline"></i> Likes </a>
+    </div>
+    <div class="col">
+      <a href="#" class="text-body text-opacity-50 text-decoration-none d-block p-2"> <i class="far fa-comment me-1 d-block d-sm-inline"></i> Comment </a>
+    </div>
+  </div>
+
+  <!--*ngIf="this.usernameOfLoggedUser"-->
+  <button class="ui basic button"
+          (click)="AddLike()"
+          data-position="bottom center">
+    <i class="check icon"></i>
+    Like
+  </button>
+
+
+  <!--*ngIf="this.usernameOfLoggedUser"-->
+  <form [formGroup]="addCommentForm"
+        (ngSubmit)="submitForm(addCommentForm.value)"
+        *ngIf="appState$ | async as appState">
+    <div class="form-group">
+      <div class="ui huge icon input">
+        <input class="form−control"
+               formControlName="comments"
+               (keyup)="onAddText($event)"
+               placeholder="Write a comment..." />
+      </div>
+      <div class="ui horizontal divider"></div>
+      <div>
+        <button class="ui blue labeled submit icon button"
+                type="submit"
+                data-position="bottom center">
+          <i class="icon edit"></i> Add comment
+        </button>
+      </div>
+    </div>
+  </form>
+  <!--
+    <hr class="mb-3 mt-1 opacity-1" />
+    <div class="d-flex align-items-center">
+      <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" width="35" class="rounded-circle" />
+      <div class="flex-fill ps-2">
+        <div class="position-relative d-flex align-items-center">
+          <input type="text" class="form-control rounded-pill bg-white bg-opacity-15" style="padding-right: 120px;" placeholder="Write a comment..." />
+          <div class="position-absolute end-0 text-center">
+            <a href="#" class="text-body text-opacity-50 me-2"><i class="fa fa-smile"></i></a>
+            <a href="#" class="text-body text-opacity-50 me-2"><i class="fa fa-camera"></i></a>
+            <a href="#" class="text-body text-opacity-50 me-2"><i class="fa fa-video"></i></a>
+            <a href="#" class="text-body text-opacity-50 me-3"><i class="fa fa-paw"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="post-comments">
+      <h4>Comments</h4>
+      <ul>
+        <li *ngFor="let comment of post.postComments">
+          <strong>{{ comment.username
+        }}:</strong> {{ comment.text }}
+        </li>
+        </ul>
+  </div>
+  </div>
+  <!--
+  <div class="post-container">
+    <div class="post-header">
+      <div class="sender-info">
+        <span class="sender-username">{{ post.senderUsername }}</span>
+      </div>
+      <span class="company-id">Company ID: {{ post.companyId }}</span>
+    </div>
+    <div class="post-body">
+      <p class="post-description">{{ post.description }}</p>
+    </div>
+    <div class="post-footer">
+      <div class="post-points">
+        <span>Points: {{ post.points }}</span>
+      </div>
+      <div class="post-comments">
+        <h4>Comments</h4>
+        <ul>
+          <li *ngFor="let comment of post.postComments">
+            <strong>{{ comment.username }}:</strong> {{ comment.text }}
+          </li>
+        </ul>
+      </div>
+      <div class="post-likes">
+        <h4>Likes</h4>
+        <ul>
+          <li *ngFor="let like of post.postLikes">
+            {{ like.username }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div> -->

@@ -5,7 +5,9 @@ namespace Reward.API.Repositories.Interfaces
     public interface IPointsRepository
     {
         Task<IEnumerable<Points>> GetAllPoints();
-        Task<Points> GetPointsForUserById(string user_id);
-        Task<IEnumerable<Points>> GetPointsForCompanyById(string company_id);
+        Task<Points> GetPointsForUserByUsername(string username);
+        Task<IEnumerable<Points>> GetPointsForCompanyById(string companyId);
+        Task<bool> UpdateUserAsync(Points user);
+        Task<bool> AddAsync(Points newPoints);
     }
 }

@@ -21,27 +21,26 @@ namespace Reward.API.Data
             {
                 new Points()
                 {
-                    user_id = "602d2149e773f2a3990b47f8",
-                    received_points = 120,
-                    budget = 300,
-                    company_id = "602d2149e773f2a3990b47f9"
+                    UserName = "ilija",
+                    ReceivedPoints = 0,
+                    Budget = 5000,
+                    CompanyId = "18809c4c-f5d3-421a-9a4e-0ac08b247352"
                 },
                 new Points()
                 {
-                    user_id = "602d2149e773f2a3990b47f5",
-                    received_points = 300,
-                    budget = 500,
-                    company_id = "602d2149e773f2a3990b47f6"
+                    UserName = "nikolina",
+                    ReceivedPoints = 0,
+                    Budget = 5000,
+                    CompanyId = "18809c4c-f5d3-421a-9a4e-0ac08b247352"
                 },
                 new Points()
                 {
-                    user_id = "602d2149e773f2a3990b47fa",
-                    received_points = 20,
-                    budget = 100,
-                    company_id = "602d2149e773f2a3990b47fb"
+                    UserName = "andrijana",
+                    ReceivedPoints = 0,
+                    Budget = 5000,
+                    CompanyId = "18809c4c-f5d3-421a-9a4e-0ac08b247352"
                 }
             };
-
 
         }
     }

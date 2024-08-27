@@ -1,11 +1,14 @@
+using System.Net.Http.Headers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Posts.Application.Contracts.Factories;
+using Posts.Application.Contracts.Infrastructure;
 using Posts.Application.Contracts.Persistence;
 using Posts.Infrastructure.Factories;
 using Posts.Infrastructure.Persistence;
 using Posts.Infrastructure.Repositories;
+using Posts.Infrastructure.Services;
 
 namespace Posts.Infrastructure;
 
@@ -22,6 +25,17 @@ public static class InfrastructureServiceRegistration
 
         services.AddScoped<IPostFactory, PostFactory>();
         services.AddScoped<IPostViewModelFactory, PostViewModelFactory>();
+
+        services.AddScoped<IUserService, UserService>();
+        services.AddHttpClient<IUserService, UserService>(client =>
+        {
+            client.BaseAddress = new Uri(configuration.GetConnectionString("UserServiceUriString") ?? string.Empty);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", configuration.GetSection("JwtTokens")["UserService"]);
+        });
+        services.AddHttpClient<IRewardService, RewardService>(client =>
+        {
+            client.BaseAddress = new Uri(configuration.GetConnectionString("RewardServiceUriString") ?? string.Empty);
+        });
 
         return services;
     }

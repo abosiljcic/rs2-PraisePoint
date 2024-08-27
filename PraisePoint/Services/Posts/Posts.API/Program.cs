@@ -1,3 +1,5 @@
+using System.Reflection;
+using MassTransit;
 using Posts.API.Extensions;
 using Posts.Application;
 using Posts.Infrastructure;
@@ -15,6 +17,22 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+// EventBus
+builder.Services.AddMassTransit(config =>
+{
+    config.UsingRabbitMq((_, cfg) =>
+    {
+        cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]);
+    });
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder =>
+        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
+
 builder.MigrateDatabase<PostContext>((context, services) =>
 {
     var logger = services.GetRequiredService<ILogger<PostContextSeed>>();
@@ -29,6 +47,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 

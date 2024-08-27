@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿//using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 using System.Text;
 using User.API.Data;
+using User.API.Services;
 
 namespace User.API.Extensions
 {
@@ -14,7 +15,14 @@ namespace User.API.Extensions
     {
         public static IServiceCollection ConfigurePersistence(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<UserContext>(options => { options.UseSqlServer(configuration.GetConnectionString("UserConnectionString")); });
+            services.AddDbContext<UserContext>(options =>
+            {
+                options.UseSqlServer(configuration.GetConnectionString("UserConnectionString"), builder =>
+                {
+                    builder.EnableRetryOnFailure(5, TimeSpan.FromSeconds(10), null);
+                });
+            });
+
             return services;
         }
 
@@ -39,6 +47,7 @@ namespace User.API.Extensions
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IUserService, UserService>();
 
             services.AddCors(options =>
             {

@@ -1,0 +1,22 @@
+
+<div class="card" style="width: 18rem;" *ngIf="cartitem.product" >
+    <h5 class="card-header">{{ cartitem.product.name }}</h5>
+    <img class="card-img-top" [src]="cartitem.product.image" alt="Product image">
+    <div class="card-body">
+    <h5 class="card-title">Name: {{ cartitem.product.name }}</h5>
+    <p class="card-text">Price: {{ cartitem.product.price }}</p>
+
+    <!-- <button class="btn btn-primary" (click)="addToCart()">Remove from Cart</button> -->
+    <div class="input-group">
+        <button class="btn btn-outline-secondary" type="button" (click)="decrementQuantity()">
+          <span class="input-group-text">-</span>
+        </button>
+        <input type="text" class="form-control text-center" [value]="quantity" readonly>
+        <button class="btn btn-outline-secondary" type="button" (click)="incrementQuantity()">
+          <span class="input-group-text">+</span>
+        </button>
+      </div>
+</div>
+</div>
+
+  

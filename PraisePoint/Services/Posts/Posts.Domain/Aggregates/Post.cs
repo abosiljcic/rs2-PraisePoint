@@ -1,10 +1,5 @@
 ﻿using Posts.Domain.Common;
 using Posts.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Posts.Domain.Aggregates
 {
@@ -43,13 +38,17 @@ namespace Posts.Domain.Aggregates
             Id = id;
         }
 
-        public void AddLike(string username)
+        public void ToggleLiked(string username)
         {
+            var like = new Like(username);
             var existingLikeForPost = PostLikes.SingleOrDefault(p => p.Username == username);
             if (existingLikeForPost is null)
             {
-                var like = new Like(username);
                 _postLikes.Add(like);
+            }
+            else
+            {
+                _postLikes.Remove(existingLikeForPost);
             }
         }
 
