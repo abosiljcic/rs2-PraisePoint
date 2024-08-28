@@ -1,4 +1,15 @@
-<h3>Your information</h3>
+<div class="container">
+  <div class="d-flex align-items-center">
+    
+    <img *ngIf="appState$ | async as appState"
+      [src]="appState.imageUrl"
+      class="rounded-circle"
+      alt=""
+      style="width: 45px; height: 45px; padding-bottom: 10px;"
+      />
+    <h3>Your information  </h3>
+    
+  </div>
 
 <div *ngIf="appState$ | async as appState">
   <table class="table table-stripped table-bordered" *ngIf="!appState.isEmpty(); else notLoggedIn">
@@ -13,7 +24,11 @@
       </tr>
       <tr>
         <td class="table-active">Name</td>
-        <td>{{ appState.firstName }} {{ appState.lastName }}</td>
+        <td>{{ appState.firstName }} {{ appState.lastName }}</td> 
+      </tr>
+      <tr>
+        <td class="table-active">Phone number</td>
+        <td>{{ appState.phoneNumber }}</td> 
       </tr>
     </tbody>
   </table>
@@ -21,4 +36,5 @@
   <ng-template #notLoggedIn>
     <p>Please <a [routerLink]="['/user', 'login']">login</a> to see your information.</p>
   </ng-template>
+</div>
 </div>

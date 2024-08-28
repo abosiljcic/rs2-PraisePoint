@@ -5,30 +5,30 @@ html, body {
 
 .center-wrapper {
     display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    height: 90vh; /* Full viewport height */
-    background-color: #f8f9fa; /* Optional background color */
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh;
+    background-color: #f8f9fa; 
 }
 
 .center-container {
     width: 100%;
-    max-width: 500px; /* Adjust width as needed */
+    max-width: 500px; 
     padding: 20px;
-    background: white; /* Background color for the form container */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    background: white; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
 }
 
 h3 {
     margin-top: 0;
-    margin-bottom: 20px; /* Space below heading */
+    margin-bottom: 20px; 
 }
 
 .form-group {
-    margin-bottom: 15px; /* Space between form fields */
+    margin-bottom: 15px; 
 }
 
 .btn-primary {
-    width: 100%; /* Full width button */
+    width: 100%; 
 }
