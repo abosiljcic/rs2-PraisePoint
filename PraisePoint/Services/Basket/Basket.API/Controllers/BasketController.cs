@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using AutoMapper;
 using Basket.API.Entities;
-using Basket.API.GrpcServices;
+//using Basket.API.GrpcServices;
 using Basket.API.Repositories;
 using EventBus.Messages.Events;
 using Grpc.Core;
@@ -15,20 +15,20 @@ namespace Basket.API.Controllers;
 public class BasketController : ControllerBase
 {
     private readonly IBasketRepository _repository;
-    private readonly CouponGrpcService _couponGrpcService;
+    //private readonly CouponGrpcService _couponGrpcService;
     private readonly ILogger<BasketController> _logger;
     private readonly IMapper _mapper;
     private readonly IPublishEndpoint _publishEndpoint;
 
     public BasketController(
         IBasketRepository repository,
-        CouponGrpcService couponGrpcService,
+        //CouponGrpcService couponGrpcService,
         ILogger<BasketController> logger,
         IMapper mapper,
         IPublishEndpoint publishEndpoint)
     {
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-        _couponGrpcService = couponGrpcService ?? throw new ArgumentNullException(nameof(couponGrpcService));
+       // _couponGrpcService = couponGrpcService ?? throw new ArgumentNullException(nameof(couponGrpcService));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _mapper = mapper ?? throw new ArgumentNullException(nameof(logger));
         _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(logger));
@@ -54,19 +54,6 @@ public class BasketController : ControllerBase
         if (User.FindFirstValue(ClaimTypes.Name) != basket.Username)
         {
             return Forbid();
-        }
-
-        foreach (var item in basket.Items)
-        {
-            try
-            {
-                var coupon = await _couponGrpcService.GetDiscount(item.ProductName);
-                item.Price -= coupon.Amount;
-            }
-            catch (RpcException e)
-            {
-                _logger.LogInformation("Error while retrieving coupon for item {ProductName}: {message}", item.ProductName, e.Message);
-            }
         }
 
         return Ok(await _repository.UpdateBasket(basket));

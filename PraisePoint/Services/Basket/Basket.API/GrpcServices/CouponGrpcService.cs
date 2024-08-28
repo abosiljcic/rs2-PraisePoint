@@ -1,4 +1,4 @@
-﻿using Discount.GRPC;
+﻿/*using Discount.GRPC;
 
 namespace Basket.API.GrpcServices;
 
@@ -28,4 +28,4 @@ public class CouponGrpcService
 
         return await _couponProtoServiceClient.GetRandomDiscountsAsync(getRandomDiscountsRequest);
     }
-}
+}*/

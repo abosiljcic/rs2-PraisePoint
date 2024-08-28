@@ -1,6 +1,11 @@
 version: '3.4'
 
 services:
+  basketdb:
+    container_name: basketdb
+    restart: always
+    ports:
+      - "6379:6379"
 
   rewarddb:
     container_name: rewarddb   
@@ -32,10 +37,11 @@ services:
     container_name: basket.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-      - "ConnectionString:BasketConnectionString=Server=mssql;Database=BasketDb;User Id=sa;Password=MATF12345678rs2;"
+      - "CacheSettings:ConnectionString=basketdb:6379"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
-      - mssql
+      - basketdb
+      - rabbitmq
     ports:
       - "8001:8080"
 

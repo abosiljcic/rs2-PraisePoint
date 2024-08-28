@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using MassTransit;
 using Ordering.Application.Features.Orders.Commands.CreateOrder;
-//using EventBus.Messages.Events;
+using EventBus.Messages.Events;
 using MediatR;
 
-/*namespace Ordering.API.EventBusConsumers
+namespace Ordering.API.EventBusConsumers
 {
     public class BasketCheckoutConsumer : IConsumer<BasketCheckoutEvent>
     {
@@ -27,4 +27,4 @@ using MediatR;
             _logger.LogInformation("{Event} consumed successfully. Created order id: {CreatedOrderId}", nameof(BasketCheckoutEvent), id);
         }
     }
-}*/
+}
