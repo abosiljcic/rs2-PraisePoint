@@ -36,7 +36,7 @@ export class LoginFormComponent implements OnInit {
       window.alert(`Login ${success ? 'is' : 'is not'} successful!`);
       this.loginForm.reset();
       if (success) {
-        this.routerService.navigate(['/user', 'profile']);
+        this.routerService.navigate(['/user', 'home-page']);
       }
     });
   }
