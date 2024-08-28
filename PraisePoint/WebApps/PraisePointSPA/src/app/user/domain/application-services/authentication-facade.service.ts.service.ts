@@ -45,6 +45,8 @@ export class AuthenticationFacadeService {
         this.appStateService.setFirstName(userDetails.firstName);
         this.appStateService.setLastName(userDetails.lastName);
         this.appStateService.setUserId(userDetails.id);
+        this.appStateService.setPhoneNumber(userDetails.phoneNumber);
+        this.appStateService.setImageUrl(userDetails.imageUrl);
 
         return true;
       }),
@@ -75,7 +77,7 @@ export class AuthenticationFacadeService {
     );
   }
 
-  public register(firstName: string, lastName: string, userName: string, password: string, imageUrl: "", email: string, 
+  public register(firstName: string, lastName: string, userName: string, password: string, imageUrl: string, email: string, 
                   phoneNumber: string, companyId: string
   ): Observable<boolean> {
     const request: IRegisterRequest = { firstName, lastName, userName, password, imageUrl, email,  phoneNumber, companyId };

@@ -3,4 +3,6 @@ export interface IUserDetails {
     firstName: string;
     lastName: string;
     email: string;
+    phoneNumber: string;
+    imageUrl: string;
   }

@@ -12,6 +12,7 @@ export interface IAppState {
   password?: string;
   phoneNumber?: string;
   companyId?: string;
+  imageUrl?: string;
 
   hasRole(role: Role): boolean;
   clone(): IAppState;
@@ -30,6 +31,7 @@ export class AppState implements IAppState {
   public password?: string;
   public phoneNumber?: string;
   public companyId?: string;
+  public imageUrl?: string;
 
   public constructor();
   public constructor(
@@ -43,13 +45,14 @@ export class AppState implements IAppState {
     userId?: string,
     password?: string,
     phoneNumber?: string,
-    companyId?: string
+    companyId?: string,
+    imageUrl?: string
   );
 
   public constructor(...args: any[]) {
     if (args.length === 0) {
       return;
-    } else if (args.length === 11) {
+    } else if (args.length === 12) {
       this.accessToken = args[0];
       this.refreshToken = args[1];
       this.username = args[2];
@@ -61,6 +64,7 @@ export class AppState implements IAppState {
       this.password = args[8];
       this.phoneNumber = args[9];
       this.companyId = args[10];
+      this.imageUrl = args[11];
     }
   }
 

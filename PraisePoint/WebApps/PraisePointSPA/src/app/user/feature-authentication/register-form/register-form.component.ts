@@ -9,7 +9,7 @@ interface IRegisterFormData {
   username: string;
   email: string;
   password: string;
-  imageUrl: "";
+  imageUrl: string;
   phoneNumber: string;
   companyId: string;
 }
@@ -31,7 +31,8 @@ export class RegisterFormComponent implements OnInit {
       email: new FormControl('', [Validators.required, Validators.minLength(12)]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       phoneNumber: new FormControl('', [Validators.required, Validators.minLength(10)]),
-      companyId: new FormControl('', [Validators.required, Validators.minLength(36)])
+      companyId: new FormControl('', [Validators.required, Validators.minLength(36)]),
+      imageUrl: new FormControl('', [Validators.required, Validators.minLength(5)])
     });
   }
 
@@ -44,10 +45,9 @@ export class RegisterFormComponent implements OnInit {
     }
 
     const data: IRegisterFormData = this.registrationForm.value as IRegisterFormData;
-    console.info("Data: " + data.firstName + " " + data.lastName + " imageUrl " + data.imageUrl);
 
     if (this.registrationForm.valid) {
-      this.authenticationService.register(data.firstName, data.lastName, data.username, data.password, "", data.email, 
+      this.authenticationService.register(data.firstName, data.lastName, data.username, data.password, data.imageUrl, data.email, 
         data.phoneNumber, data.companyId).subscribe((success: boolean) => {
           window.alert(`Registration ${success ? 'is' : 'is not'} successful!`);
           this.registrationForm.reset();

@@ -10,10 +10,11 @@ import { RegisterFormComponent } from './feature-authentication/register-form/re
 // Podrazumeva se prefix /user
 
 const routes: Routes = [
-  { path: '', component: UserComponent, children: [{ path: 'login', component: LoginFormComponent }] },
+  { path: '', component: UserComponent },
   { path: 'profile', component: UserProfileComponent, canActivate: [NotAuthenticatedGuard] },
   { path: 'logout', component: LogoutComponent },
-  { path: 'register', component: RegisterFormComponent }
+  { path: 'register', component: RegisterFormComponent },
+  { path: 'login', component: LoginFormComponent }
 ];
 
 @NgModule({
