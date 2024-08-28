@@ -1,0 +1,39 @@
+<div>
+<nav class="navbar navbar-expand-lg fixed-top bg-light navbar-light">
+	<div class="container">
+	  <a class="navbar-brand mb-0 h1" href="/"
+		>PraisePoint</a>
+	  <button
+		class="navbar-toggler"
+		type="button"
+		data-mdb-toggle="collapse"
+		data-mdb-target="#navbarSupportedContent"
+		aria-controls="navbarSupportedContent"
+		aria-expanded="false"
+		aria-label="Toggle navigation"
+	  >
+		<i class="fas fa-bars"></i>
+	  </button>
+	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav ms-auto align-items-center">
+		  <li class="nav-item">
+			<a class="sidenav-link active nav-link mx-2" href="/user">
+			<fa-icon [icon]="faHome" class="fas pe-2"></fa-icon>Home</a>
+		  </li>
+		  <li class="nav-item">
+			<a class="nav-link mx-2" href="#!"><fa-icon [icon]="faShop" class="fas pe-2"></fa-icon>Shop</a>
+		  </li>
+		  <li class="nav-item">
+			<a class="nav-link mx-2" href="#!">
+				<fa-icon [icon]="faCart" class="fas pe-2"></fa-icon>
+				<span class="badge rounded-pill badge-notification bg-danger">1</span>
+			</a>
+		  </li>
+		  <li class="nav-item ms-3" *ngIf="userLoggedIn()">
+			<a class="btn btn-black btn-info btn-rounded" [routerLink]="['/user', 'logout']">Sign out</a>
+		  </li>
+		</ul>
+	  </div>
+	</div>
+  </nav>
+</div>

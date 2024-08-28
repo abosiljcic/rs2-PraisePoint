@@ -7,6 +7,9 @@ services:
   rewarddb:
     image: mongo
 
+  productsdb:
+    image: mongo
+    
   mssql:
     image: mcr.microsoft.com/mssql/server:2017-latest
 
@@ -36,6 +39,12 @@ services:
     build:
       context: .
       dockerfile: Services/Reward/Reward.API/Dockerfile
+
+  products.api:
+    image: ${DOCKER_REGISTRY-}productsapi
+    build:
+      context: .
+      dockerfile: Services/Products/Products.API/Dockerfile
 
   ordering.api:
     image: ${DOCKER_REGISTRY-}orderingapi

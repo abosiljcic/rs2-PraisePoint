@@ -1,0 +1,9 @@
+<button (click)="clearCart()"> Clear Cart</button>
+
+<div class="container py-3">
+    <div class="row row-cols-1 row-cols-md-3 g-1">
+      <div class="col" *ngFor="let cartitem of cartData.products">
+        <app-cart-item [cartitem]="cartitem"></app-cart-item>
+      </div>
+    </div>
+  </div>

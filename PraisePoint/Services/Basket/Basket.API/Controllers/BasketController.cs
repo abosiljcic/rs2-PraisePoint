@@ -8,69 +8,62 @@ using Grpc.Core;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Basket.API.Controllers;
-
-[ApiController]
-[Route("api/v1/[controller]")]
-public class BasketController : ControllerBase
+namespace Basket.API.Controllers
 {
-    private readonly IBasketRepository _repository;
+    [ApiController]
+    [Route("api/v1/[controller]")]
+    public class BasketController : ControllerBase
+    {
+        private readonly IBasketRepository _repository;
     //private readonly CouponGrpcService _couponGrpcService;
     private readonly ILogger<BasketController> _logger;
     private readonly IMapper _mapper;
     private readonly IPublishEndpoint _publishEndpoint;
 
-    public BasketController(
-        IBasketRepository repository,
-        //CouponGrpcService couponGrpcService,
-        ILogger<BasketController> logger,
-        IMapper mapper,
-        IPublishEndpoint publishEndpoint)
-    {
-        _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+        public BasketController(IBasketRepository repository)
+        {
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
        // _couponGrpcService = couponGrpcService ?? throw new ArgumentNullException(nameof(couponGrpcService));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _mapper = mapper ?? throw new ArgumentNullException(nameof(logger));
         _publishEndpoint = publishEndpoint ?? throw new ArgumentNullException(nameof(logger));
-    }
+        }
 
-    [HttpGet("{username}")]
-    [ProducesResponseType(typeof(ShoppingCart), StatusCodes.Status200OK)]
-    public async Task<ActionResult<ShoppingCart>> GetBasket(string username)
-    {
+        [HttpGet("{username}")]
+        [ProducesResponseType(typeof(ShoppingCart), StatusCodes.Status200OK)]
+        public async Task<ActionResult<ShoppingCart>> GetBasket(string username)
+        {
         if (User.FindFirst(ClaimTypes.Name)?.Value != username)
         {
             return Forbid();
         }
 
-        var basket = await _repository.GetBasket(username);
-        return Ok(basket ?? new ShoppingCart(username));
-    }
+            var basket = await _repository.GetBasket(username);
+            return Ok(basket ?? new ShoppingCart(username));
+        }
 
-    [HttpPut]
-    [ProducesResponseType(typeof(ShoppingCart), StatusCodes.Status200OK)]
-    public async Task<ActionResult<ShoppingCart>> UpdateBasket([FromBody] ShoppingCart basket)
-    {
+        [HttpPut]
+        [ProducesResponseType(typeof(ShoppingCart), StatusCodes.Status200OK)]
+        public async Task<ActionResult<ShoppingCart>> UpdateBasket([FromBody] ShoppingCart basket)
+        {
         if (User.FindFirstValue(ClaimTypes.Name) != basket.Username)
         {
             return Forbid();
         }
 
-        return Ok(await _repository.UpdateBasket(basket));
-    }
+            return Ok(await _repository.UpdateBasket(basket));
+        }
 
-    [HttpDelete("{username}")]
-    [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
-    public async Task<IActionResult> DeleteBasket(string username)
-    {
-        if (User.FindFirstValue(ClaimTypes.Name) != username)
+        [HttpDelete("{username}")]
+        [ProducesResponseType(typeof(void), StatusCodes.Status200OK)]
+        public async Task<ActionResult> DeleteBasket(string username)
         {
             return Forbid();
         }
 
-        await _repository.DeleteBasket(username);
-        return Ok();
-    }
+            await _repository.DeleteBasket(username);
+            return Ok();
+        }
 
     [Route("[action]")]
     [HttpPost]

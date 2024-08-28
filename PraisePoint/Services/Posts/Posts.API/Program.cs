@@ -27,6 +27,12 @@ builder.Services.AddMassTransit(config =>
     });
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder =>
+        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
+
 builder.MigrateDatabase<PostContext>((context, services) =>
 {
     var logger = services.GetRequiredService<ILogger<PostContextSeed>>();
@@ -41,6 +47,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 

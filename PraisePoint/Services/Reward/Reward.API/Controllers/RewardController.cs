@@ -23,12 +23,12 @@ namespace Reward.API.Controllers
             return Ok(allPoints);   
         }
 
-        [HttpGet("/users/{user_id}")]
+        [HttpGet("/users/{username}")]
         [ProducesResponseType(typeof(Points), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Points), StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Points>> GetPointsForUserById(string user_id)
+        public async Task<ActionResult<Points>> GetPointsForUserByUsername(string username)
         {
-            var points = await _repository.GetPointsForUserById(user_id);
+            var points = await _repository.GetPointsForUserByUsername(username);
             if (points == null)
             {
                 return NotFound(null);

@@ -1,6 +1,13 @@
 version: '3.4'
 
 services:
+  productsdb:
+    container_name: productsdb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:\data\db
   basketdb:
     container_name: basketdb
     restart: always
@@ -51,9 +58,15 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-      - "ConnectionString:PostConnectionString=Server=mssql;Database=PostDb;User Id=sa;Password=MATF12345678rs2;"
+      - "ConnectionStrings:PostConnectionString=Server=mssql;Database=PostDb;User Id=sa;Password=MATF12345678rs2;TrustServerCertificate=True;Encrypt=False;"
+      - "ConnectionStrings:UserServiceUriString=http://user.api:8080/"
+      - "ConnectionStrings:RewardServiceUriString=http://reward.api:8080/"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
+      - rabbitmq
       - mssql
+      - user.api
+      - reward.api
     ports:
       - "8004:8080" 
 
@@ -63,7 +76,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-      - "ConnectionString:UserConnectionString=Server=mssql;Database=UserDb;User Id=sa;Password=MATF12345678rs2;"
+      - "ConnectionStrings:UserConnectionString=Server=mssql;Database=UserDb;User Id=sa;Password=MATF12345678rs2;TrustServerCertificate=True;Encrypt=False;"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
       - mssql
       - rabbitmq
@@ -82,9 +96,16 @@ services:
       - rabbitmq
     ports:
       - "8003:8080"
-
-
-  
+      
+  products.api:
+    container_name: products.api
+    environment:
+      -  ASPNETCORE_ENVIRONMENT=Development
+      - "DatabaseSettings:ConnectionSettings=mongodb://productsdb:27017"
+    depends_on:
+      - productsdb
+    ports:
+      - "8005:8080"
 
 
   ordering.api:

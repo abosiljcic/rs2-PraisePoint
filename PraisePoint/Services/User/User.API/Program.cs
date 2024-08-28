@@ -2,6 +2,7 @@ using System.Reflection;
 using User.API.Extensions;
 using User.API.Services;
 using MassTransit;
+using User.API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,8 @@ builder.Services.ConfigurePersistence(builder.Configuration);
 builder.Services.ConfigureIdentity();
 builder.Services.ConfigureJWT(builder.Configuration);
 builder.Services.ConfigureMiscellaneousServices();
+
+builder.MigrateDatabase<UserContext>();
 
 builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
 builder.Services.AddTransient<IUserService, UserService>();

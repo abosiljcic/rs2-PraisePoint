@@ -66,8 +66,8 @@ public class ResetPoints : IHostedService, IDisposable
                 _logger.LogWarning("Operation canceled.");
                 return;
             }
-            point.received_points = 0;
-            point.budget = DefaultBudget;
+            point.ReceivedPoints = 0;
+            point.Budget = DefaultBudget;
             await _pointsRepository.UpdateUserAsync(point);
         }
 

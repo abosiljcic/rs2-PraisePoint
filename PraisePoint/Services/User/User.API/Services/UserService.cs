@@ -41,9 +41,14 @@ namespace User.API.Services
                     .Select(s => s.PointsNumber)
                     .FirstOrDefaultAsync();
 
-            Console.WriteLine("PointsNum: " + pointsNumber);
-
             return pointsNumber;
         }
+
+        public async Task<List<Entities.Company>> GetCompanies()
+        {
+            var companies = await _dbContext.Companies.ToListAsync();
+            return companies;
+        }
+
     }
 }

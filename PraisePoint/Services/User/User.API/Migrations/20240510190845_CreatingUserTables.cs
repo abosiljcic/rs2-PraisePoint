@@ -31,6 +31,7 @@ namespace User.API.Migrations
             columns: new[] { "Id", "Name", "Domain", "PointsNumber" },
             values: new object[,]
             {
+                { Guid.Parse("18809c4c-f5d3-421a-9a4e-0ac08b247352"), "PraisePoint", "praisepoint.com", 100000},
                 { Guid.NewGuid(), "Google", "gmail.com", 550 },
                 { Guid.NewGuid(), "Oracle", "oracle.com", 450 },
                 { Guid.NewGuid(), "IBM", "ibm.com", 400 },
