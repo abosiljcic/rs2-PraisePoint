@@ -20,7 +20,7 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
     AppRoutingModule,
     HttpClientModule,
     HomePageComponent,
-    PostProfileComponent 
+    PostProfileComponent,
     FontAwesomeModule,
     NavigationComponent
 ],

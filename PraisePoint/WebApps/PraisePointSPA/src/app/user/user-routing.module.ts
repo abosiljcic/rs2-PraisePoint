@@ -11,7 +11,7 @@ import { RegisterFormComponent } from './feature-authentication/register-form/re
 
 const routes: Routes = [
   { path: '', component: UserComponent },
-  { path: 'profile', component: UserProfileComponent, canActivate: [NotAuthenticatedGuard] },
+  { path: 'home-page', component: UserProfileComponent, canActivate: [NotAuthenticatedGuard] },
   { path: 'logout', component: LogoutComponent },
   { path: 'register', component: RegisterFormComponent },
   { path: 'login', component: LoginFormComponent }
