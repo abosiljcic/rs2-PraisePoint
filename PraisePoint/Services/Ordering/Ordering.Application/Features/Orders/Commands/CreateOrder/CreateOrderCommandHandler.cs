@@ -61,3 +61,4 @@ namespace Ordering.Application.Features.Orders.Commands.CreateOrder
             }
         }
     }
+}

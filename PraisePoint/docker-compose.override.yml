@@ -8,6 +8,11 @@ services:
       - "27017:27017"
     volumes:
       - mongo_data:\data\db
+  basketdb:
+    container_name: basketdb
+    restart: always
+    ports:
+      - "6379:6379"
 
   rewarddb:
     container_name: rewarddb   
@@ -39,10 +44,11 @@ services:
     container_name: basket.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-      - "ConnectionString:BasketConnectionString=Server=mssql;Database=BasketDb;User Id=sa;Password=MATF12345678rs2;"
+      - "CacheSettings:ConnectionString=basketdb:6379"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
-      - mssql
+      - basketdb
+      - rabbitmq
     ports:
       - "8001:8080"
 
@@ -98,6 +104,19 @@ services:
       - "DatabaseSettings:ConnectionSettings=mongodb://productsdb:27017"
     depends_on:
       - productsdb
+    ports:
+      - "8005:8080"
+
+
+  ordering.api:
+    container_name: ordering.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:OrderingConnectionString=Server=mssql;Database=OrderDb;User Id=sa;Password=MATF12345678rs2;TrustServerCertificate=True;Encrypt=False;"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
+    depends_on:
+      - mssql
+      - rabbitmq
     ports:
       - "8005:8080"
 

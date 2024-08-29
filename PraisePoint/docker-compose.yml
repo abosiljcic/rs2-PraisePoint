@@ -1,6 +1,8 @@
 version: '3.4'
 
 services:
+  basketdb:
+    image: redis:alpine
 
   rewarddb:
     image: mongo
@@ -43,6 +45,12 @@ services:
     build:
       context: .
       dockerfile: Services/Products/Products.API/Dockerfile
+
+  ordering.api:
+    image: ${DOCKER_REGISTRY-}orderingapi
+    build:
+      context: .
+      dockerfile: Services/Ordering/Ordering.API/Dockerfile
 
 volumes:
   mssql_data:
