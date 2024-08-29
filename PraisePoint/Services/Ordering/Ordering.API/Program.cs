@@ -6,6 +6,7 @@ using Ordering.API.Extensions;
 using Ordering.Application;
 using Ordering.Infrastructure;
 using Ordering.Infrastructure.Persistence;
+using Ordering.API.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,7 @@ builder.MigrateDatabase<OrderContext>((context, services) =>
 
 // Mapper
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddAutoMapper(typeof(OrderingProfile));
 
 // EventBus
 builder.Services.AddMassTransit(config =>
