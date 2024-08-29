@@ -1,9 +1,47 @@
-<button (click)="clearCart()"> Clear Cart</button>
 
-<div class="container py-3">
-    <div class="row row-cols-1 row-cols-md-3 g-1">
-      <div class="col" *ngFor="let cartitem of cartData.products">
-        <app-cart-item [cartitem]="cartitem"></app-cart-item>
+  <div class="container py-3">
+  
+    <!-- Prikaz prazne korpe -->
+    <div class="cart-container" *ngIf="cartData.products.length === 0">
+      <div class="cart-container__empty">
+        Your cart is empty.
+      </div>
+    </div>
+
+    <!-- Prikaz korpe sa stavkama -->
+    <div class="cart-container" *ngIf="cartData.products.length > 0">
+      <header class="list-header">
+        <h2>Reward Cart</h2>
+      </header>
+      <!-- Dugme za čišćenje korpe -->
+    <button class="btn btn-danger mb-3" (click)="clearCart()">Clear Cart</button>
+      <div class="row row-cols-1 row-cols-md-3 g-1">
+        <div class="col" *ngFor="let cartitem of cartData.products; index as i">
+          <app-cart-item [cartitem]="cartitem"></app-cart-item>
+        </div>
+      </div>
+      <div class="cart-container__total mt-3">
+        <div class="price">
+          <span>
+            <h3>Total amount: {{ cartData.total}}</h3>
+          </span>
+          <span>
+            <h3>Total items:  {{ cartData.products.length }} </h3>
+          </span>
+        </div>
+        <div class="cta text-center">
+          <button
+            class="btn btn-primary"
+            [routerLink]="['/basket/order']"
+            [disabled]="cartData.products.length === 0"
+          >
+            Checkout
+          </button>
+          <button class="btn btn-secondary" [routerLink]="['/basket']">
+            Back to shopping
+          </button>
+        </div>
       </div>
     </div>
   </div>
+  

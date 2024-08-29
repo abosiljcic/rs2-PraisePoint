@@ -6,12 +6,14 @@ import { NgModule } from '@angular/core';
 import { AuthenticationInterceptor } from './shared/interceptors/authentication.interceptor.ts.interceptor';
 import { NavigationComponent } from "./navigation/navigation.component";
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
