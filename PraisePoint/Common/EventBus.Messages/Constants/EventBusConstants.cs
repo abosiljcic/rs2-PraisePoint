@@ -10,5 +10,6 @@ namespace EventBus.Messages.Constants
     {
         public const string PointsAwardedQueue = "pointsawarded-queue";
         public const string NewPointsQueue = "newpoints-queue";
+        public const string BasketCheckoutQueue = "basketcheckout-queue";
     }
 }

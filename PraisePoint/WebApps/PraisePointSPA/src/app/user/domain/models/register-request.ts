@@ -3,7 +3,7 @@ export interface IRegisterRequest {
     lastName: string;
     userName: string;
     password: string;
-    imageUrl: "";
+    imageUrl: string;
     email: string;
     phoneNumber: string;
     companyId: string

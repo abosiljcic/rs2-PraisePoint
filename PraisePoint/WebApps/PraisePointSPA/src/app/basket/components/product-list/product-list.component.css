@@ -1,23 +1,24 @@
 .card {
-    margin-bottom: 1rem;
-  }
-  
-  .card-img-top {
-    object-fit: cover; 
-  }
-  
-  .container {
-    padding-left: 0;
-    padding-right: 0;
-  }
-  
-  .row {
-    margin-left: -0.5rem; 
-    margin-right: -0.5rem;
-  }
-  
-  .col {
-    padding-left: 0.5rem; 
-    padding-right: 0.5rem;
-  }
-  
+  margin-bottom: 1.5rem;
+}
+
+.card-img-top {
+  object-fit: cover;
+  width: 100%; /* Osigurajte da slika ne prelazi ivice kartice */
+  height: auto; /* Prilagodite visinu slike */
+}
+
+.container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.col {
+  padding-left: 0.5rem; /* Prilagodite padding za bolje razmak između kartica */
+  padding-right: 0.5rem;
+}

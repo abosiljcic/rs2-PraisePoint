@@ -70,6 +70,20 @@ export class AppStateService {
     this.localStorageService.set(LocalStorageKeys.AppState, this.appState);
   }
 
+  public setPhoneNumber(phoneNumber: string): void {
+    this.appState = this.appState.clone();
+    this.appState.phoneNumber = phoneNumber;
+    this.appStateSubject.next(this.appState);
+    this.localStorageService.set(LocalStorageKeys.AppState, this.appState);
+  }
+
+  public setImageUrl(imageUrl: string): void {
+    this.appState = this.appState.clone();
+    this.appState.imageUrl = imageUrl;
+    this.appStateSubject.next(this.appState);
+    this.localStorageService.set(LocalStorageKeys.AppState, this.appState);
+  }
+
   public setUserId(userId: string): void {
     this.appState = this.appState.clone();
     this.appState.userId = userId;

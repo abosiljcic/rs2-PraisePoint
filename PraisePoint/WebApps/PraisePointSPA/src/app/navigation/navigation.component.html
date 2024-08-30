@@ -17,20 +17,20 @@
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav ms-auto align-items-center">
 		  <li class="nav-item">
-			<a class="sidenav-link active nav-link mx-2" href="/">
+			<a class="sidenav-link active nav-link mx-2" href="/user">
 			<fa-icon [icon]="faHome" class="fas pe-2"></fa-icon>Home</a>
 		  </li>
 		  <li class="nav-item">
-			<a class="nav-link mx-2" href="#!"><fa-icon [icon]="faShop" class="fas pe-2"></fa-icon>Shop</a>
+			<a class="nav-link mx-2" href="/basket"><fa-icon [icon]="faShop" class="fas pe-2"></fa-icon>Shop</a>
 		  </li>
 		  <li class="nav-item">
-			<a class="nav-link mx-2" href="#!">
+			<a class="nav-link mx-2" href="/basket/cart">
 				<fa-icon [icon]="faCart" class="fas pe-2"></fa-icon>
 				<span class="badge rounded-pill badge-notification bg-danger">1</span>
 			</a>
 		  </li>
-		  <li class="nav-item ms-3">
-			<a class="btn btn-black btn-info btn-rounded" href="/user">Sign out</a>
+		  <li class="nav-item ms-3" *ngIf="userLoggedIn()">
+			<a class="btn btn-black btn-info btn-rounded" [routerLink]="['/user', 'logout']">Sign out</a>
 		  </li>
 		</ul>
 	  </div>

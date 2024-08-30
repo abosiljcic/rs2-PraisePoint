@@ -10,6 +10,8 @@ import { PostProfileComponent } from './components/post-profile/post-profile.com
 import { NavigationComponent } from "./navigation/navigation.component";
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { AddPostComponent } from './components/add-post/add-post.component';
+import { CommonModule } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -17,11 +19,12 @@ import { AddPostComponent } from './components/add-post/add-post.component';
     //PostProfileComponent
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     HomePageComponent,
-    PostProfileComponent, 
+    PostProfileComponent,
     FontAwesomeModule,
     NavigationComponent,
     AddPostComponent,
