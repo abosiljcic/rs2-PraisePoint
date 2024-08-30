@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PostService } from '../../services/post.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Observable, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, switchMap, tap } from 'rxjs';
 import { IAppState } from '../../shared/app-state/app-state';
 import { AppStateService } from '../../shared/app-state/app-state.service';
 
@@ -18,13 +18,16 @@ import { AppStateService } from '../../shared/app-state/app-state.service';
 export class PostProfileComponent implements OnInit {
   @Input('postData')
   public post!: Post;
-  public appState$: Observable<IAppState>;
-  usernameOfLoggedUser: string | undefined;
+
+  public appState$: BehaviorSubject<IAppState>;
+  usernameOfLoggedUser: string = '';
+  imgUrl: string = 'https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp';
+
   addCommentForm: FormGroup;
   isLiked: boolean = false;
   comment: String = "";
-
-  canDelete = "True";
+  isCommentClicked: boolean = false;
+  canDelete = "False";
 
   //id: string;
 
@@ -38,7 +41,12 @@ export class PostProfileComponent implements OnInit {
     //this.postService.getPostById(this.id).subscribe((post) => {
       //this.post = post as Post;
     //});
-    this.appState$ = this.appStateService.getAppState();
+    const storedState = localStorage.getItem('appState');
+    console.log('Stored state:', storedState);
+
+    const initialState: IAppState = storedState ? JSON.parse(storedState) : {};
+    this.appState$ = new BehaviorSubject<IAppState>(initialState);
+    //console.log('Parsed appState username:', this.appState$.getValue().username);
 
     this.addCommentForm = this.formBuilder.group({
       comments: '',
@@ -48,17 +56,15 @@ export class PostProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.appState$.subscribe((state: IAppState) => {
-      this.usernameOfLoggedUser = state.username;
-      //console.log("ovo je user:" + this.usernameOfLoggedUser);
-    });    
+      this.usernameOfLoggedUser = state.username ?? 'defaultUsername';
+      //this.imgUrl = state.imageUrl;     kad pulujes otkomentarisi
+      console.log("Ovo je user:", this.usernameOfLoggedUser);
+    });
   }
-
-  //ovde cu valjda da imam za dodavanje komentara, lajkova
 
   AddLike() {
     this.isLiked = !this.isLiked;
     console.log("lajk:" + this.isLiked);
-    this.usernameOfLoggedUser = "GLUPIUSER1";
     if (this.isLiked) {
       this.postService.addLike(this.usernameOfLoggedUser, this.post.id)
         .subscribe((result) => { });
@@ -66,6 +72,10 @@ export class PostProfileComponent implements OnInit {
     else {
       //delete like
     }
+  }
+
+  openCommentForm() {
+    this.isCommentClicked = !this.isCommentClicked;
   }
 
   onAddText(event: Event): void {
@@ -77,11 +87,20 @@ export class PostProfileComponent implements OnInit {
     this.addCommentForm.reset({
       comment: '',
     });
-    this.usernameOfLoggedUser = "GLUPIUSER"; //ovo je dok ne dohvatim lepo ulogovanog usera
 
     this.postService
-      .addComment(this.usernameOfLoggedUser!, this.post.id, this.comment)
+      .addComment(this.usernameOfLoggedUser, this.post.id, this.comment)
       .subscribe((post: Post) => { });
+
+    this.isCommentClicked = false;
+
   }
 
+  onCancelComment() {
+    this.addCommentForm.reset({
+      comment: '',
+    });
+  }
+
+  //dodaj brisanje komentara
 }
