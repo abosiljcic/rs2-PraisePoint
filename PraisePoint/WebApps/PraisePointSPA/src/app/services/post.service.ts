@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class PostService {
   private posts: Observable<Post[]> = new Observable<Post[]>();
 
-  private readonly postsUrl = 'http://localhost:8004'; //proveri na beku jel ovako
+  private readonly postsUrl = 'http://localhost:8004'; 
   constructor(private http: HttpClient) {
     //this.getPosts("18809c4c-f5d3-421a-9a4e-0ac08b247352");
   }
@@ -22,6 +22,11 @@ export class PostService {
 
   getPostById(id: string): Observable<Post> {
     return this.http.get<Post>(this.postsUrl + "/id/" + id);
+  }
+
+  addPost(data: any): Observable<Post> {
+    console.log("u servisu sam zovem bek")
+    return this.http.post<Post>(this.postsUrl + "/api/v1/Post", data);
   }
 
   addLike(

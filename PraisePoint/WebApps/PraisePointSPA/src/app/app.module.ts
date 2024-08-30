@@ -9,6 +9,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { PostProfileComponent } from './components/post-profile/post-profile.component';
 import { NavigationComponent } from "./navigation/navigation.component";
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { AddPostComponent } from './components/add-post/add-post.component';
 
 @NgModule({
   declarations: [
@@ -20,9 +21,10 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
     AppRoutingModule,
     HttpClientModule,
     HomePageComponent,
-    PostProfileComponent 
+    PostProfileComponent, 
     FontAwesomeModule,
-    NavigationComponent
+    NavigationComponent,
+    AddPostComponent,
 ],
   
   providers: [

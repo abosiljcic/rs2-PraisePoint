@@ -1,30 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from '../../models/post.model';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { PostService } from '../../services/post.service';
 import { PostProfileComponent } from '../post-profile/post-profile.component';
 import { CommonModule } from '@angular/common';
+import { AddPostComponent } from '../add-post/add-post.component';
+import { IAppState } from '../../shared/app-state/app-state';
+import { AppStateService } from '../../shared/app-state/app-state.service';
 
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [CommonModule, PostProfileComponent],
+  imports: [CommonModule, PostProfileComponent, AddPostComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
 export class HomePageComponent implements OnInit {
   posts: Post[] = [];
-  companyId = "18809c4c-f5d3-421a-9a4e-0ac08b247352" //ovo se kasnije sa user komponente dovlaci
+  public appState$: BehaviorSubject<IAppState>;
+  companyId: string = "18809c4c-f5d3-421a-9a4e-0ac08b247352";
 
 
   sub: Subscription = new Subscription();
 
-  constructor(private postsService: PostService) {
-    
+  constructor(
+    private postsService: PostService,
+    private appStateService: AppStateService
+  ) {
+    const storedState = localStorage.getItem('appState');
+
+    const initialState: IAppState = storedState ? JSON.parse(storedState) : {};
+    this.appState$ = new BehaviorSubject<IAppState>(initialState);
   }
 
   ngOnInit(): void {
+    // Pretplaćujemo se na appState$ kako bismo pratili promene u stanju
+    this.appState$.subscribe((state: IAppState) => {
+      this.companyId = state.companyId ?? '18809c4c-f5d3-421a-9a4e-0ac08b247352';
+      console.log("Ovo je user:", this.companyId);
+    });
+
     this.postsService.getPosts(this.companyId).subscribe((posts) => {
       this.posts = posts as Post[];      
     });
