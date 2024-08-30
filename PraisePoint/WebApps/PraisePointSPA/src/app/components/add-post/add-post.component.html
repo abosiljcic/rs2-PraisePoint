@@ -1,0 +1,38 @@
+<div ui grid>
+  <form class="ui form border border-gray-300 p-6 rounded-lg shadow-sm mt-16" [formGroup]="addPostForm" (ngSubmit)="onSubmitForm(addPostForm.value)">
+    <div class="space-y-6">
+      <div class="border-b border-gray-900/10 pb-7">
+
+        <div class="flex space-x-4">
+          <div class="form-group required field sm:col-span-3">
+            <label for="receiverUsername" class="block text-sm font-medium leading-6 text-gray-900">Username of recipient</label>
+            <div class="mt-2">
+              <input type="text" name="receiverUsername" id="receiverUsername" class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" formControlName="receiverUsername">
+            </div>
+          </div>
+
+          <div class="form-group required field sm:col-span-3">
+            <label for="points" class="block text-sm font-medium leading-6 text-gray-900">Points</label>
+            <div class="mt-2">
+              <input type="number" name="points" id="points" class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" formControlName="points">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group" class="required field" class="col-span-full">
+          <label for="description" class="block text-sm font-medium leading-6 text-gray-900">Description</label>
+          <div class="mt-2">
+            <textarea id="description" name="description" rows="3" placeholder="Write a few sentences why you recognize this employee..." formControlName="description" class="form-control block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
+          </div>         
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-2 flex items-center justify-end gap-x-6">
+      <button type="button" (click)="onCancelPost()" class="text-sm font-semibold leading-6 text-gray-900">Cancel</button>
+      <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Post</button>
+    </div>
+
+  </form>
+
+</div>
