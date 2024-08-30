@@ -28,6 +28,7 @@ export class PostProfileComponent implements OnInit {
   comment: String = "";
   isCommentClicked: boolean = false;
   canDelete = "False";
+  companyId: string | undefined = '';
 
   //id: string;
 
@@ -58,6 +59,7 @@ export class PostProfileComponent implements OnInit {
     this.appState$.subscribe((state: IAppState) => {
       this.usernameOfLoggedUser = state.username ?? 'defaultUsername';
       //this.imgUrl = state.imageUrl;     kad pulujes otkomentarisi
+      this.companyId = state.companyId;
       console.log("Ovo je user:", this.usernameOfLoggedUser);
     });
   }

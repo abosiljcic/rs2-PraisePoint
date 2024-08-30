@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Post } from '../models/post.model';
-import { Observable, map } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +11,26 @@ import { HttpClient } from '@angular/common/http';
 export class PostService {
   private posts: Observable<Post[]> = new Observable<Post[]>();
 
-  private readonly postsUrl = 'http://localhost:8004'; 
+  private readonly postsUrl = 'http://localhost:8004';
+
+  private refreshRequired = new Subject<void>();
+  private refreshCommentsRequired = new Subject<void>();
+  get RefreshRequired() {
+    return this.refreshRequired;
+  }
+  get RefreshCommentsRequired() {
+    return this.refreshCommentsRequired;
+  }
+
   constructor(private http: HttpClient) {
     //this.getPosts("18809c4c-f5d3-421a-9a4e-0ac08b247352");
   }
+
+  refreshPosts(companyId: string): Observable<Post[]> {
+    this.posts = this.http.get<Post[]>(this.postsUrl + "/company/" + companyId);
+    return this.posts;
+  }
+
 
   getPosts(companyId: string): Observable<Post[]> {
     this.posts = this.http.get<Post[]>(this.postsUrl + "/company/" + companyId);
@@ -26,7 +44,12 @@ export class PostService {
 
   addPost(data: any): Observable<Post> {
     console.log("u servisu sam zovem bek")
-    return this.http.post<Post>(this.postsUrl + "/api/v1/Post", data);
+    return this.http.post<Post>(this.postsUrl + "/api/v1/Post", data)
+      .pipe(
+        tap(() => {
+          this.refreshRequired.next(); // Emitovanje događaja kada se post doda
+        })
+      );
   }
 
   addLike(
@@ -45,7 +68,12 @@ export class PostService {
   ): Observable<Post> {
     const data = { username, postId, text };
 
-    return this.http.post<Post>(this.postsUrl + "/comments", data);
+    return this.http.post<Post>(this.postsUrl + "/comments", data)
+      .pipe(
+        tap(() => {
+          this.refreshRequired.next(); // Emitovanje događaja kada se doda komentar na post
+        })
+      );
   }
 
 
