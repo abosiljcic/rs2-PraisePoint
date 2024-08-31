@@ -14,7 +14,7 @@ import { RegisterFormComponent } from './feature-authentication/register-form/re
   declarations: [
     UserComponent,
     LoginFormComponent,
-    UserProfileComponent,
+   // UserProfileComponent,
     LogoutComponent,
     RegisterFormComponent
   ],
