@@ -84,6 +84,13 @@ export class AppStateService {
     this.localStorageService.set(LocalStorageKeys.AppState, this.appState);
   }
 
+  public setCompanyId(companyId: string): void {
+    this.appState = this.appState.clone();
+    this.appState.companyId = companyId;
+    this.appStateSubject.next(this.appState);
+    this.localStorageService.set(LocalStorageKeys.AppState, this.appState);
+  }
+
   public setUserId(userId: string): void {
     this.appState = this.appState.clone();
     this.appState.userId = userId;

@@ -5,4 +5,5 @@ export interface IUserDetails {
     email: string;
     phoneNumber: string;
     imageUrl: string;
+    companyId: string;
   }
