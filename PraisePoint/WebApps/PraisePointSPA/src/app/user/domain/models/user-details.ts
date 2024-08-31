@@ -6,4 +6,5 @@ export interface IUserDetails {
     phoneNumber: string;
     imageUrl: string;
     companyId: string;
+    username: string;
   }

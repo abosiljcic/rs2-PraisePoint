@@ -1,0 +1,29 @@
+<div class="container">
+<table class="table table-stripped table-bordered" *ngFor="let user of users">
+  <img
+      [src]="user.imageUrl"
+      class="rounded-circle"
+      alt=""
+      style="width: 45px; height: 45px; padding-bottom: 10px;"
+      />
+  <tbody>
+    <tr>
+      <td class="table-active">Username</td>
+      <td>{{ user.username }}</td>
+    </tr>
+    <tr>
+      <td class="table-active">Email</td>
+      <td>{{ user.email }}</td>
+    </tr>
+    <tr>
+      <td class="table-active">Name</td>
+      <td>{{ user.firstName }} {{ user.lastName }}</td> 
+    </tr>
+    <tr>
+      <td class="table-active">Phone number</td>
+      <td>{{ user.phoneNumber }}</td> 
+    </tr>
+  </tbody>
+</table>
+</div>
+  
