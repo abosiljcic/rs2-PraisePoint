@@ -12,4 +12,8 @@ export class UserFacadeService {
   public getUserDetails(username: string): Observable<IUserDetails> {
     return this.userService.getUserDetails(username);
   }
+
+  public getUsersByCompanyId(companyId: string | undefined): Observable<IUserDetails[]> {
+    return this.userService.getUsersByCompanyId(companyId);
+  }
 }
