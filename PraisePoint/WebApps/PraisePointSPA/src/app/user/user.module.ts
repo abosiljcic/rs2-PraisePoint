@@ -8,6 +8,7 @@ import { LoginFormComponent } from './feature-authentication/login-form/login-fo
 import { UserProfileComponent } from './feature-user-info/user-profile/user-profile.component';
 import { LogoutComponent } from './feature-authentication/logout/logout/logout.component';
 import { RegisterFormComponent } from './feature-authentication/register-form/register-form.component';
+import { CompanyUsersComponent } from './feature-company-users/company-users/company-users.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { RegisterFormComponent } from './feature-authentication/register-form/re
     LoginFormComponent,
     UserProfileComponent,
     LogoutComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
+    CompanyUsersComponent
   ],
   imports: [
     CommonModule,

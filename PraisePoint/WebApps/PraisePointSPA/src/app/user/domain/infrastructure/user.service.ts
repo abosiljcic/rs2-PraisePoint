@@ -12,4 +12,8 @@ export class UserService {
   public getUserDetails(username: string): Observable<IUserDetails> {
     return this.httpClient.get<IUserDetails>(`http://localhost:8002/api/v1/User/${username}`);
   }
+
+  public getUsersByCompanyId(companyId: string | undefined): Observable<IUserDetails[]> {
+    return this.httpClient.get<IUserDetails[]>(`http://localhost:8002/api/v1/User/users/${companyId}`);
+  }
 }

@@ -17,6 +17,7 @@ export interface IAppState {
   hasRole(role: Role): boolean;
   clone(): IAppState;
   isEmpty(): boolean;
+  getRole(): Role | undefined;
 }
 
 export class AppState implements IAppState {
@@ -77,7 +78,7 @@ export class AppState implements IAppState {
     }
     return this.roles.find((registeredRole: Role) => registeredRole === role) !== undefined;
   }
-
+  
   public clone(): IAppState {
     const newState = new AppState();
     Object.assign(newState, this);
@@ -87,4 +88,13 @@ export class AppState implements IAppState {
   public isEmpty(): boolean {
     return this.accessToken === undefined /* && this.refreshToken === undefined && ... */;
   }
+
+  public getRole(): Role | undefined {
+    if (Array.isArray(this.roles)) {
+      return this.roles.find((registeredRole: Role) => registeredRole === Role.Admin);
+    }
+    
+    return undefined;
+  }
+  
 }
