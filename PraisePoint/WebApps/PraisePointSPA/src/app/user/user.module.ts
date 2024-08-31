@@ -15,7 +15,7 @@ import { CompanyUsersComponent } from './feature-company-users/company-users/com
   declarations: [
     UserComponent,
     LoginFormComponent,
-    UserProfileComponent,
+   // UserProfileComponent,
     LogoutComponent,
     RegisterFormComponent,
     CompanyUsersComponent

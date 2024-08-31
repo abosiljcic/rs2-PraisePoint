@@ -11,11 +11,12 @@ import { NavigationComponent } from "./navigation/navigation.component";
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { AddPostComponent } from './components/add-post/add-post.component';
 import { CommonModule } from '@angular/common';
+import { UserProfileComponent } from './user/feature-user-info/user-profile/user-profile.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
     //PostProfileComponent
   ],
   imports: [
@@ -28,6 +29,7 @@ import { CommonModule } from '@angular/common';
     FontAwesomeModule,
     NavigationComponent,
     AddPostComponent,
+    UserProfileComponent
 ],
   
   providers: [

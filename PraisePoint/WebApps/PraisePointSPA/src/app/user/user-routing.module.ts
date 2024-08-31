@@ -13,7 +13,6 @@ import { CompanyUsersComponent } from './feature-company-users/company-users/com
 
 const routes: Routes = [
   { path: '', component: UserComponent },
-  { path: 'home-page', component: UserProfileComponent, canActivate: [NotAuthenticatedGuard] },
   { path: 'admin', component: CompanyUsersComponent, canActivate: [RoleGuard] },
   { path: 'logout', component: LogoutComponent },
   { path: 'register', component: RegisterFormComponent },
