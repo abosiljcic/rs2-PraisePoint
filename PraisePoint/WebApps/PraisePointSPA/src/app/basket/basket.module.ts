@@ -9,6 +9,7 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { OrderComponent } from './components/order/order.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RewardComponent } from './components/reward/reward.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ProductListComponent,
     ProductItemComponent,
     CartItemComponent,
-    OrderComponent
+    OrderComponent,
+    RewardComponent
   ],
   imports: [
     CommonModule,
