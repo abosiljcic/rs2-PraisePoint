@@ -1,21 +1,15 @@
 version: '3.4'
 
 services:
-  productsdb:
-    container_name: productsdb
-    restart: always
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:\data\db
+
   basketdb:
     container_name: basketdb
     restart: always
     ports:
       - "6379:6379"
 
-  rewarddb:
-    container_name: rewarddb   
+  mongodb:
+    container_name: mongodb   
     restart: always
     ports:
       - "27017:27017"
@@ -89,10 +83,10 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-      - "DatabaseSettings:ConnectionString=mongodb://rewarddb:27017"
+      - "DatabaseSettings:ConnectionString=mongodb://mongodb:27017"
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
-      - rewarddb
+      - mongodb
       - rabbitmq
     ports:
       - "8003:8080"
@@ -101,11 +95,11 @@ services:
     container_name: products.api
     environment:
       -  ASPNETCORE_ENVIRONMENT=Development
-      - "DatabaseSettings:ConnectionSettings=mongodb://productsdb:27017"
+      - "DatabaseSettings:ConnectionSettings=mongodb://mongodb:27017"
     depends_on:
-      - productsdb
+      - mongodb
     ports:
-      - "8005:8080"
+      - "8006:8080"
 
 
   ordering.api:
