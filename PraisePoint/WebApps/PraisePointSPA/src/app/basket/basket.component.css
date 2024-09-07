@@ -1,0 +1,65 @@
+/* Osnovno stilizovanje tela i header-a */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    display: flex;
+    justify-content: flex-start;
+    padding: 20px;
+    background-color: #f8f9fa;
+    position: relative;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+}
+
+app-reward {
+    width: 200px; 
+    margin-right: 20px;
+}
+
+.reward-card {
+    max-width: 24rem; /* Širina kartice, prilagodi po potrebi */
+    width: 100%; /* Da se širi na celu dostupnu širinu */
+}
+
+.card-header {
+    font-size: 1rem; /* Velikost fonta za header kartice */
+    font-weight: bold; /* Podebljani font za header */
+}
+
+.h5 {
+    font-size: 0.85rem; /* Velikost fonta za naslov kartice */
+    margin-bottom: 8px; /* Razmak ispod naslova kartice */
+}
+
+.card-body .row {
+    font-size: 0.875rem; /* Manja veličina fonta za tekst u kartici */
+}
+
+.card-body .col-6 {
+    font-size: 0.875rem; /* Manja veličina fonta za oba stupca */
+}
+
+.label {
+    font-weight: bold; /* Podebljani font za oznake */
+}
+
+.text-right {
+    text-align: right; /* Desno poravnavanje teksta */
+}
+
+.pricing-header {
+    flex: 1; /* Ostatak prostora */
+    text-align: center;
+}
+
+app-product-list {
+    margin: 20px;
+}
