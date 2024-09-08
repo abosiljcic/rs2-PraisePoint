@@ -16,4 +16,6 @@ export interface Post {
     id: string;
     username: string;
   }[];
+  numberOfLikes: number;
+  numberOfComments: number;
 }
