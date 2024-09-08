@@ -16,4 +16,7 @@ public class PostViewModel
         public IEnumerable<CommentViewModel> PostComments { get; set; }
         
         public IEnumerable<LikeViewModel> PostLikes { get; set; }
+        public int NumberOfLikes { get; set; }
+        public int NumberOfComments { get; set; }
+
 }

@@ -24,7 +24,6 @@ export class HomePageComponent implements OnInit {
   companyId: string | undefined;
   createdDate: string | undefined;
 
-
   sub: Subscription = new Subscription();
 
   constructor(
@@ -40,7 +39,7 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     // Pretplaćujemo se na appState$ kako bismo pratili promene u stanju
     this.appState$.subscribe((state: IAppState) => {
-      this.companyId = state.companyId //?? '18809c4c-f5d3-421a-9a4e-0ac08b247352';
+      this.companyId = state.companyId;
       console.log("Ovo je user:", this.companyId);
     });
     
@@ -53,7 +52,6 @@ export class HomePageComponent implements OnInit {
         .subscribe((posts) => {
           this.posts = posts
             .map(post => {
-              //console.log(post.createdDate);
               post.createdDate = moment(post.createdDate).fromNow();
               return post;
             });
