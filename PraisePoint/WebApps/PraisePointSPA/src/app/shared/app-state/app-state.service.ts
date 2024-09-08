@@ -42,6 +42,13 @@ export class AppStateService {
     this.localStorageService.set(LocalStorageKeys.AppState, this.appState);
   }
 
+  public setPointsNumber(pointsNumber: number): void {
+    this.appState = this.appState.clone();
+    this.appState.pointsNumber = pointsNumber;
+    this.appStateSubject.next(this.appState);
+    this.localStorageService.set(LocalStorageKeys.AppState, this.appState);
+  }
+
   public setEmail(email: string): void {
     this.appState = this.appState.clone();
     this.appState.email = email;

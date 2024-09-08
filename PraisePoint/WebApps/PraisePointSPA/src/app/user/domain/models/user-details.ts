@@ -7,4 +7,5 @@ export interface IUserDetails {
     imageUrl: string;
     companyId: string;
     username: string;
+    pointsNumber: number;
   }
