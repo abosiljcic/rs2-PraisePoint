@@ -55,7 +55,21 @@ namespace User.API.Controllers
         public async Task<ActionResult<UserDetailsDto>> GetUser(string username)
         {
             var user = await _userManager.Users.FirstOrDefaultAsync(user => user.UserName == username);
-            return Ok(_mapper.Map<UserDetailsDto>(user));
+            var pointsNumber = await _userService.GetCompanyPointsNumber(user.CompanyId);
+
+            var userDetails = new UserDetailsDto
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                CompanyId = user.CompanyId,
+                Email = user.Email,
+                UserName = user.UserName,
+                PhoneNumber = user.PhoneNumber,
+                ImageUrl = user.ImageUrl,
+                PointsNumber = pointsNumber
+            };
+
+            return Ok(_mapper.Map<UserDetailsDto>(userDetails));
         }
 
         [HttpGet("user/{userId}")]

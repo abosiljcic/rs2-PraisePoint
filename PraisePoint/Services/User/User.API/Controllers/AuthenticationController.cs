@@ -40,6 +40,8 @@ namespace User.API.Controllers
                 return BadRequest("Invalid CompanyId.");
             }
 
+            _logger.LogInformation($"Points number: {newUser.PointsNumber}, {pointsNumber}");
+
             var userDetails = new NewUserDto
             {
                 FirstName = newUser.FirstName,
@@ -49,14 +51,14 @@ namespace User.API.Controllers
                 UserName = newUser.UserName,
                 PhoneNumber = newUser.PhoneNumber,
                 ImageUrl = newUser.ImageUrl,
-                PointsNumber = newUser.PointsNumber,
+                PointsNumber = pointsNumber,
                 Password = newUser.Password
             };
             
             var initPointsDto = new InitPointsDto
             {
                 CompanyId = newUser.CompanyId,
-                CompanyBudget = newUser.PointsNumber,
+                CompanyBudget = pointsNumber,
                 UserName = newUser.UserName,
             };
 
