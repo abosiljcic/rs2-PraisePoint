@@ -11,6 +11,7 @@ public class PostViewModel
         public Guid CompanyId { get; set; }
         public int Points { get; set; }
         public string Description { get; set; }
+        public DateTime CreatedDate { get; set; }
 
         public IEnumerable<CommentViewModel> PostComments { get; set; }
         

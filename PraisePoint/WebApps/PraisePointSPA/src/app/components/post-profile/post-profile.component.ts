@@ -47,7 +47,6 @@ export class PostProfileComponent implements OnInit {
 
     const initialState: IAppState = storedState ? JSON.parse(storedState) : {};
     this.appState$ = new BehaviorSubject<IAppState>(initialState);
-    //console.log('Parsed appState username:', this.appState$.getValue().username);
 
     this.addCommentForm = this.formBuilder.group({
       comments: '',

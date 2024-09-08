@@ -18,6 +18,7 @@ namespace Posts.Domain.Entities
         {
             Username = username ?? throw new ArgumentNullException(nameof(username));
             Text = text ?? throw new ArgumentNullException(nameof(text));
+            CreatedDate = DateTime.Now;
         }
     }
 }

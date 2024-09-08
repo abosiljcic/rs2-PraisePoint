@@ -25,6 +25,14 @@ namespace Posts.Application.Features.Posts.Queries.GetPostsByCompanyId
         public async Task<List<PostViewModel>> Handle(GetPostsByCompanyIdQuery request, CancellationToken cancellationToken)
         {
             var posts = await _repository.GetPostsByCompanyId(request.CompanyId);
+
+            foreach (var post in posts)
+            {
+                var sortedPostComments = post.GetSortedPostComments();
+
+
+            }
+
             return posts.Select(p => _factory.CreateViewModel(p)).ToList();
         }
     }
