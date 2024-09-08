@@ -4,6 +4,32 @@
   <br />
   <app-user-profile></app-user-profile>
 
+  <div class="ui two column grid segment items-center">
+    <div class="flex items-center space-x-4 w-full">
+
+      <div class="w-3/5">
+        <select class="ui selection dropdown w-full" (change)="onSelectedType($event)">
+          <option value="sender" selected="selected">Search by username of sender</option>
+          <option value="receiver">Search by username of receiver</option>
+        </select>
+      </div>
+
+      <input type="text"
+             class="border border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring focus:border-blue-300 w-2/5"
+             placeholder="Search posts..."
+             name="searchParam"
+             [(ngModel)]="searchParam" />
+
+      <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 flex items-center space-x-1"
+              (click)="onSearch()">
+        <span>Search</span>
+        <i class="search icon"></i>
+      </button>
+    </div>
+  </div>
+
+  <br />
+
   <div *ngFor="let post of posts">
     <app-post-profile [postData]="post"></app-post-profile>
     <br />
@@ -12,6 +38,5 @@
 </div>
 
 <ng-template #notLoggedIn>
-  <!-- Ovaj sadržaj se prikazuje ako uslov nije ispunjen -->
   <app-user-profile></app-user-profile>
 </ng-template>

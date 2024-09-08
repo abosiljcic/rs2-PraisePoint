@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { BehaviorSubject, Observable, map, switchMap, tap } from 'rxjs';
 import { IAppState } from '../../shared/app-state/app-state';
 import { AppStateService } from '../../shared/app-state/app-state.service';
+import moment from 'moment';
 
 @Component({
   selector: 'app-post-profile',
@@ -21,7 +22,7 @@ export class PostProfileComponent implements OnInit {
 
   public appState$: BehaviorSubject<IAppState>;
   usernameOfLoggedUser: string = '';
-  imgUrl: string = 'https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp';
+  imgUrl: string | undefined= 'https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp';
 
   addCommentForm: FormGroup;
   isLiked: boolean = false;
@@ -57,10 +58,13 @@ export class PostProfileComponent implements OnInit {
   ngOnInit(): void {
     this.appState$.subscribe((state: IAppState) => {
       this.usernameOfLoggedUser = state.username ?? 'defaultUsername';
-      //this.imgUrl = state.imageUrl;     kad pulujes otkomentarisi
+      this.imgUrl = state.imageUrl;     //kad pulujes otkomentarisi
+      console.log("slika user:", this.imgUrl);
       this.companyId = state.companyId;
       console.log("Ovo je user:", this.usernameOfLoggedUser);
     });
+
+    this.post.createdDate = moment(this.post.createdDate).fromNow();
   }
 
   AddLike() {
@@ -69,9 +73,6 @@ export class PostProfileComponent implements OnInit {
     if (this.isLiked) {
       this.postService.addLike(this.usernameOfLoggedUser, this.post.id)
         .subscribe((result) => { });
-    }
-    else {
-      //delete like
     }
   }
 

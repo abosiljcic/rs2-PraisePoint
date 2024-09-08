@@ -38,6 +38,18 @@ export class PostService {
     return this.posts;
   }
 
+  getPostsBySenderUsername(senderUsername: string): Observable<Post[]> {
+    this.posts = this.http.get<Post[]>(this.postsUrl + "/sender-username/" + senderUsername);
+    //console.log(this.posts.pipe(map(posts => posts.map(post => `From: ${post.senderUsername}, To: ${post.receiverUsername}, Message: ${post.description}`))));
+    return this.posts;
+  }
+
+  getPostsByReceiverUsername(receiverUsername: string): Observable<Post[]> {
+    this.posts = this.http.get<Post[]>(this.postsUrl + "/receiver-username/" + receiverUsername);
+    //console.log(this.posts.pipe(map(posts => posts.map(post => `From: ${post.senderUsername}, To: ${post.receiverUsername}, Message: ${post.description}`))));
+    return this.posts;
+  }
+
   getPostById(id: string): Observable<Post> {
     return this.http.get<Post>(this.postsUrl + "/id/" + id);
   }
