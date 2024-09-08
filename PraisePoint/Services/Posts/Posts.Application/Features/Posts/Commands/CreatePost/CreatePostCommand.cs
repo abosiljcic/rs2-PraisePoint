@@ -16,5 +16,6 @@ namespace Posts.Application.Features.Posts.Commands.CreatePost
         public int Points { get; set; }
         public string Description { get; set; }
 
+
     }
 }

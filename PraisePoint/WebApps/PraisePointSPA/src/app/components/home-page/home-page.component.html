@@ -1,6 +1,7 @@
-<div>
+<div *ngIf="(appState$ | async)?.companyId as appState; else notLoggedIn">
 
   <app-add-post></app-add-post>
+  <br />
   <app-user-profile></app-user-profile>
 
   <div *ngFor="let post of posts">
@@ -9,3 +10,8 @@
   </div>
 
 </div>
+
+<ng-template #notLoggedIn>
+  <!-- Ovaj sadržaj se prikazuje ako uslov nije ispunjen -->
+  <app-user-profile></app-user-profile>
+</ng-template>

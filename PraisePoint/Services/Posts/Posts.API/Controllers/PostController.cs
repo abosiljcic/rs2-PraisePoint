@@ -43,7 +43,9 @@ namespace Posts.API.Controllers
         {
             var query = new GetPostsByCompanyIdQuery(companyId);
             var posts = await _mediator.Send(query);
-            return Ok(posts);
+            var sortedPosts = posts.OrderByDescending(post => post.CreatedDate).ToList();
+
+            return Ok(sortedPosts);
         }
 
         [HttpGet("/sender-username/{senderUsername}")]
@@ -52,7 +54,9 @@ namespace Posts.API.Controllers
         {
             var query = new GetPostsBySenderUsernameQuery(senderUsername);
             var posts = await _mediator.Send(query);
-            return Ok(posts);
+            var sortedPosts = posts.OrderByDescending(post => post.CreatedDate).ToList();
+
+            return Ok(sortedPosts);
         }
 
         [HttpGet("/receiver-username/{receiverUsername}")]
@@ -61,7 +65,9 @@ namespace Posts.API.Controllers
         {
             var query = new GetPostsByReceiverUsernameQuery(receiverUsername);
             var posts = await _mediator.Send(query);
-            return Ok(posts);
+            var sortedPosts = posts.OrderByDescending(post => post.CreatedDate).ToList();
+
+            return Ok(sortedPosts);
         }
 
         [HttpGet("/hashtagId/{hashtagId}")]
@@ -70,7 +76,9 @@ namespace Posts.API.Controllers
         {
             var query = new GetPostsByHashtagIdQuery(hashtagId);
             var posts = await _mediator.Send(query);
-            return Ok(posts);
+            var sortedPosts = posts.OrderByDescending(post => post.CreatedDate).ToList();
+
+            return Ok(sortedPosts);
         }
 
         [HttpGet("/id/{id}")]

@@ -35,6 +35,7 @@ namespace Posts.Application.Features.Posts.Commands.CreatePost
             if (pointsInfo.Budget < request.Points) return Guid.Empty;
             
             var postEntity = _factory.Create(request);
+            postEntity.CreatedDate = DateTime.UtcNow;
             var newPost = await _repository.AddAsync(postEntity);
 
             _logger.LogInformation($"Post {newPost.Id} is succesfully created");

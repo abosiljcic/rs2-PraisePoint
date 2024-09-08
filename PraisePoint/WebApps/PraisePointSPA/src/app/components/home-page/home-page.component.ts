@@ -8,6 +8,7 @@ import { AddPostComponent } from '../add-post/add-post.component';
 import { IAppState } from '../../shared/app-state/app-state';
 import { AppStateService } from '../../shared/app-state/app-state.service';
 import { UserProfileComponent } from '../../user/feature-user-info/user-profile/user-profile.component';
+import moment from 'moment';
 
 
 @Component({
@@ -20,7 +21,8 @@ import { UserProfileComponent } from '../../user/feature-user-info/user-profile/
 export class HomePageComponent implements OnInit {
   posts: Post[] = [];
   public appState$: BehaviorSubject<IAppState>;
-  companyId: string = "18809c4c-f5d3-421a-9a4e-0ac08b247352";
+  companyId: string | undefined;
+  createdDate: string | undefined;
 
 
   sub: Subscription = new Subscription();
@@ -38,18 +40,25 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     // Pretplaćujemo se na appState$ kako bismo pratili promene u stanju
     this.appState$.subscribe((state: IAppState) => {
-      this.companyId = state.companyId ?? '18809c4c-f5d3-421a-9a4e-0ac08b247352';
+      this.companyId = state.companyId //?? '18809c4c-f5d3-421a-9a4e-0ac08b247352';
       console.log("Ovo je user:", this.companyId);
-    });    
-
-    this.postsService.RefreshRequired
-      .pipe(
-        startWith(0), // Pokreće prvi put kada se komponenta inicijalizuje
-        switchMap(() => this.postsService.getPosts(this.companyId))
-      )
-      .subscribe((posts) => {
-        this.posts = posts.reverse()
-      });
+    });
+    
+    if (this.companyId) {
+      this.postsService.RefreshRequired
+        .pipe(
+          startWith(0), // Pokreće prvi put kada se komponenta inicijalizuje
+          switchMap(() => this.postsService.getPosts(this.companyId!))
+        )
+        .subscribe((posts) => {
+          this.posts = posts
+            .map(post => {
+              //console.log(post.createdDate);
+              post.createdDate = moment(post.createdDate).fromNow();
+              return post;
+            });
+        });
+    }
   }
 
 }
