@@ -13,6 +13,7 @@ export interface IAppState {
   phoneNumber?: string;
   companyId?: string;
   imageUrl?: string;
+  pointsNumber?: number;
 
   hasRole(role: Role): boolean;
   clone(): IAppState;
@@ -33,6 +34,7 @@ export class AppState implements IAppState {
   public phoneNumber?: string;
   public companyId?: string;
   public imageUrl?: string;
+  public pointsNumber?: number;
 
   public constructor();
   public constructor(
@@ -47,13 +49,14 @@ export class AppState implements IAppState {
     password?: string,
     phoneNumber?: string,
     companyId?: string,
-    imageUrl?: string
+    imageUrl?: string,
+    pointsNumber?: number
   );
 
   public constructor(...args: any[]) {
     if (args.length === 0) {
       return;
-    } else if (args.length === 12) {
+    } else if (args.length === 13) {
       this.accessToken = args[0];
       this.refreshToken = args[1];
       this.username = args[2];
@@ -66,6 +69,7 @@ export class AppState implements IAppState {
       this.phoneNumber = args[9];
       this.companyId = args[10];
       this.imageUrl = args[11];
+      this.pointsNumber = args[12];
     }
   }
 
