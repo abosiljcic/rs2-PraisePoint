@@ -30,6 +30,9 @@ export class PostProfileComponent implements OnInit {
   isCommentClicked: boolean = false;
   canDelete = "False";
   companyId: string | undefined = '';
+  
+  shouldOpenCommentSection: boolean = false;
+
 
   //id: string;
 
@@ -72,8 +75,12 @@ export class PostProfileComponent implements OnInit {
     console.log("lajk:" + this.isLiked);
     if (this.isLiked) {
       this.postService.addLike(this.usernameOfLoggedUser, this.post.id)
-        .subscribe((result) => { });
+        .subscribe((post: Post) => { });
     }
+  }
+
+  openCommentSection() {
+    this.shouldOpenCommentSection = !this.shouldOpenCommentSection;
   }
 
   openCommentForm() {

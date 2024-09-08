@@ -39,7 +39,11 @@ public class PostViewModelFactory: IPostViewModelFactory
 
         postViewModel.PostComments = postComments;
         postViewModel.PostLikes = postLikes;
-        
+        postViewModel.NumberOfLikes = postLikes.Count;
+        postViewModel.NumberOfComments = postComments.Count;
+
+
+
         return postViewModel;
     }
 }

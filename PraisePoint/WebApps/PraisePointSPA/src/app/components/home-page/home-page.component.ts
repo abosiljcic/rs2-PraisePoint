@@ -26,8 +26,8 @@ export class HomePageComponent implements OnInit {
   public searchType: string;
   public searchParam: string = "";
 
-  
   activeSubscriptions: Subscription[] = [];
+
   constructor(
     private postsService: PostService,
     private appStateService: AppStateService
@@ -43,7 +43,7 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     // Pretplaćujemo se na appState$ kako bismo pratili promene u stanju
     const sub = this.appState$.subscribe((state: IAppState) => {
-      this.companyId = state.companyId //?? '18809c4c-f5d3-421a-9a4e-0ac08b247352';
+      this.companyId = state.companyId
       console.log("Ovo je user:", this.companyId);
     });
     this.activeSubscriptions.push(sub);

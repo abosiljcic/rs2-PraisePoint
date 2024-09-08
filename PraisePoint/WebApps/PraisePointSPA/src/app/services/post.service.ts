@@ -70,7 +70,12 @@ export class PostService {
   ): Observable<Post> {
     const data = { username, postId };
 
-    return this.http.post<Post>(this.postsUrl + "/likes", data);
+    return this.http.post<Post>(this.postsUrl + "/likes", data)
+      .pipe(
+        tap(() => {
+          this.refreshRequired.next(); // Emitovanje događaja kada se doda komentar na post
+        })
+      );
   }
 
   addComment(
