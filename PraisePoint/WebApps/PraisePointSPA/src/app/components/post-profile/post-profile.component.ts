@@ -31,7 +31,7 @@ export class PostProfileComponent implements OnInit {
   canDelete = "False";
   companyId: string | undefined = '';
   
-  shouldOpenCommentSection: boolean = false;
+  //shouldOpenCommentSection: boolean = false;
 
 
   //id: string;
@@ -77,10 +77,6 @@ export class PostProfileComponent implements OnInit {
       this.postService.addLike(this.usernameOfLoggedUser, this.post.id)
         .subscribe((post: Post) => { });
     }
-  }
-
-  openCommentSection() {
-    this.shouldOpenCommentSection = !this.shouldOpenCommentSection;
   }
 
   openCommentForm() {

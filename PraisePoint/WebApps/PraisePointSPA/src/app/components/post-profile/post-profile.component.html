@@ -23,13 +23,13 @@
     <p class="card-text"> {{ post.description }} </p>
   </div>
   <div class="card-footer">
-    <button class="col ui basic button" (click)="openCommentForm()">
+    <button class="col ui basic button">
       <a class="d-inline-block text-muted">
         <strong>{{ post.numberOfLikes }}</strong> <small class="align-middle"> Likes</small>
       </a>
     </button>
-    <button class="col ui basic button" (click)="openCommentSection()">
-      <a href="javascript:void(0)" class="d-inline-block text-muted ml-3">
+    <button class="col ui basic button">
+      <a class="d-inline-block text-muted ml-3">
         <strong>{{ post.numberOfComments }}</strong> <small class="align-middle"> Comments</small>
       </a>
     </button>
