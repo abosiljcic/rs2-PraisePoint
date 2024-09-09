@@ -45,6 +45,7 @@ export class AddPostComponent implements OnInit {
       this.companyId = state.companyId;
       console.log("kompani aj di:" + state.companyId);
       console.log("jusernejm:" + state.username);
+      console.log("budzet:" + this.budget);
 
       
     });

@@ -48,6 +48,7 @@ export class AuthenticationFacadeService {
         this.appStateService.setPhoneNumber(userDetails.phoneNumber);
         this.appStateService.setImageUrl(userDetails.imageUrl);
         this.appStateService.setCompanyId(userDetails.companyId);
+        this.appStateService.setPointsNumber(userDetails.pointsNumber);
         //this.appStateService.setUsername(userDetails.username);
 
         return true;

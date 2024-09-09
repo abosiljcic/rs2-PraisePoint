@@ -7,6 +7,7 @@
         </div>
         <div class="ml-2">
           <div class="h5 m-0"> {{ post.senderUsername }}</div>
+          <div class="text-muted small">{{ post.createdDate }}</div>
         </div>
       </div>
     </div>
@@ -21,6 +22,18 @@
     </div>
     <p class="card-text"> {{ post.description }} </p>
   </div>
+  <div class="card-footer">
+    <button class="col ui basic button">
+      <a class="d-inline-block text-muted">
+        <strong>{{ post.numberOfLikes }}</strong> <small class="align-middle"> Likes</small>
+      </a>
+    </button>
+    <button class="col ui basic button">
+      <a class="d-inline-block text-muted ml-3">
+        <strong>{{ post.numberOfComments }}</strong> <small class="align-middle"> Comments</small>
+      </a>
+    </button>
+  </div>
 
   <hr class="mb-1 opacity-1" />
 
@@ -29,7 +42,12 @@
   <div class="row text-center fw-bold">
     <button class="col ui basic button"
             (click)="AddLike()">
-      <a class="text-body text-opacity-50 text-decoration-none d-block p-2"> <i class="far fa-thumbs-up me-1 d-block d-sm-inline"></i> Like </a>
+      <a [ngClass]="{'text-primary': isLiked, 'text-body text-opacity-50': !isLiked}"
+         class="text-decoration-none d-block p-2">
+        <i [ngClass]="{'fas fa-thumbs-up': isLiked, 'far fa-thumbs-up': !isLiked}"
+           class="me-1 d-block d-sm-inline"></i>
+        Like
+      </a>
     </button>
     <button class="col ui basic button" (click)="openCommentForm()">
       <a class="text-body text-opacity-50 text-decoration-none d-block p-2"> <i class="far fa-comment me-1 d-block d-sm-inline"></i> Comment </a>
@@ -52,14 +70,14 @@
       </li>
     </ul>
   </section>
-  
-   <!--*ngIf="this.usernameOfLoggedUser"-->
+
+  <!--*ngIf="this.usernameOfLoggedUser"-->
   <form [formGroup]="addCommentForm"
         (ngSubmit)="submitForm(addCommentForm.value)"
         *ngIf="isCommentClicked">
     <div class="form-group d-flex align-items-start mb-2">
       <img class="rounded-circle me-3"
-           src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(10).webp"
+           src="{{ this.imgUrl }}"
            alt="avatar" width="35" height="35" />
       <div>
         <input class="form-controlc rounded-pill bg-white bg-opacity-15"
@@ -76,67 +94,3 @@
       </div>
     </div>
   </form>
-
-  <!--
-  <hr class="mb-3 mt-1 opacity-1" />
-  <div class="d-flex align-items-center">
-    <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="" width="35" class="rounded-circle" />
-    <div class="flex-fill ps-2">
-      <div class="position-relative d-flex align-items-center">
-        <input type="text"
-               class="form-control rounded-pill bg-white bg-opacity-15"
-               formControlName="comments"
-               (keyup)="onAddText($event)"
-               style="padding-right: 120px;"
-               placeholder="Write a comment..." />
-
-      </div>
-
-
-    </div>
-
-    <div>
-      <button class="ui blue labeled submit icon button"
-              type="submit"
-              data-position="bottom center">
-        <i class="icon edit"></i> Add comment
-      </button>
-    </div>
-  </div>
-
-  -->
-
-</div>
-  <!--
-  <div class="post-container">
-    <div class="post-header">
-      <div class="sender-info">
-        <span class="sender-username">{{ post.senderUsername }}</span>
-      </div>
-      <span class="company-id">Company ID: {{ post.companyId }}</span>
-    </div>
-    <div class="post-body">
-      <p class="post-description">{{ post.description }}</p>
-    </div>
-    <div class="post-footer">
-      <div class="post-points">
-        <span>Points: {{ post.points }}</span>
-      </div>
-      <div class="post-comments">
-        <h4>Comments</h4>
-        <ul>
-          <li *ngFor="let comment of post.postComments">
-            <strong>{{ comment.username }}:</strong> {{ comment.text }}
-          </li>
-        </ul>
-      </div>
-      <div class="post-likes">
-        <h4>Likes</h4>
-        <ul>
-          <li *ngFor="let like of post.postLikes">
-            {{ like.username }}
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div> -->

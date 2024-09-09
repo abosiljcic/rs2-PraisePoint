@@ -17,6 +17,10 @@ namespace Posts.Domain.Aggregates
         private readonly List<Comment> _postComments = new List<Comment>();
         public IReadOnlyCollection<Comment> PostComments => _postComments;
 
+        public IEnumerable<Comment> GetSortedPostComments()
+        {
+            return _postComments.OrderBy(c => c.CreatedDate);
+        }
 
         public Post(string senderUsername, string receiverUsername, Guid companyId, int points, string description)
         {
@@ -25,11 +29,18 @@ namespace Posts.Domain.Aggregates
             CompanyId = companyId;
             Points = points;
             Description = description ?? throw new ArgumentNullException(nameof(description));
+            CreatedDate = DateTime.UtcNow;
         }
 
         public Post(Guid id, string senderUsername, string receiverUsername, Guid companyId, int points, string description): this(senderUsername, receiverUsername, companyId, points, description)
         {
             Id = id;
+            SenderUsername = senderUsername ?? throw new ArgumentNullException(nameof(senderUsername));
+            ReceiverUsername = receiverUsername ?? throw new ArgumentNullException(nameof(receiverUsername));
+            CompanyId = companyId;
+            Points = points;
+            Description = description ?? throw new ArgumentNullException(nameof(description));
+            CreatedDate = DateTime.UtcNow;
         }
 
 

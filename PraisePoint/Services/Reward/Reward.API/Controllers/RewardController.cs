@@ -4,8 +4,8 @@ using Reward.API.Repositories.Interfaces;
 
 namespace Reward.API.Controllers
 {
-    [ApiController]
     [Route("api/v1/[controller]")]
+    [ApiController]
     public class RewardController : ControllerBase
     {
         IPointsRepository _repository;

@@ -15,6 +15,8 @@ public class PostViewModelFactory: IPostViewModelFactory
         postViewModel.CompanyId = post.CompanyId;
         postViewModel.Description = post.Description;
         postViewModel.Points = post.Points;
+        postViewModel.CreatedDate = post.CreatedDate;
+
         var postComments = new List<CommentViewModel>();
         foreach (var comment in post.PostComments)
         {
@@ -22,6 +24,7 @@ public class PostViewModelFactory: IPostViewModelFactory
             commentItem.Id = comment.Id;
             commentItem.Username = comment.Username;
             commentItem.Text = comment.Text;
+            commentItem.CreatedDate = comment.CreatedDate;
             postComments.Add(commentItem);
         }
         
@@ -36,7 +39,11 @@ public class PostViewModelFactory: IPostViewModelFactory
 
         postViewModel.PostComments = postComments;
         postViewModel.PostLikes = postLikes;
-        
+        postViewModel.NumberOfLikes = postLikes.Count;
+        postViewModel.NumberOfComments = postComments.Count;
+
+
+
         return postViewModel;
     }
 }

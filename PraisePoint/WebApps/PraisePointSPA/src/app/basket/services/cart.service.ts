@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { IProduct } from '../models/product';
 
 import { ICart } from '../models/cart';
+import { ICartItem } from '../models/cart-item';
 
 @Injectable({
   providedIn: 'root'
@@ -77,7 +78,7 @@ export class CartService {
     }).filter(cartItem => cartItem !== null); // Filtrirajte null vrednosti (koje predstavljaju uklonjene proizvode)
   
     // Ažurirajte podatke korpe
-    this.cartData.products = updatedProducts;
+    this.cartData.products = updatedProducts.filter(product => product !== null) as ICartItem[];
     this.cartData.total = this.getCartTotal();
   
     // Obavestite pretplatnike o promenama
