@@ -8,13 +8,14 @@ import { AddPostComponent } from '../add-post/add-post.component';
 import { IAppState } from '../../shared/app-state/app-state';
 import { AppStateService } from '../../shared/app-state/app-state.service';
 import { UserProfileComponent } from '../../user/feature-user-info/user-profile/user-profile.component';
+import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, PostProfileComponent, AddPostComponent, UserProfileComponent],
+  imports: [CommonModule, FormsModule, PostProfileComponent, AddPostComponent, UserProfileComponent, RouterModule],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
