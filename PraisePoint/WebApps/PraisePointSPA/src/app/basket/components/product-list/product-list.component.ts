@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IProduct } from '../../models/product';
-import { BasketService } from '../../services/basket.service';
+import { ProductService } from '../../services/product.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -11,14 +12,25 @@ import { BasketService } from '../../services/basket.service';
 })
 export class ProductListComponent implements OnInit {
 
-  products : IProduct[] = [];
+  products: IProduct[] = [];
 
-  constructor(private basketService: BasketService) { // Injektujemo BasketService
+  activeSubscriptions: Subscription[] = [];
 
-    this.products = this.basketService.getProducts();
-    //console.log('Products:', this.products);
+  constructor(private productService: ProductService) {
+
+    const sub = this.productService.getProducts()
+      .subscribe((products) => {
+        this.products = products;
+        console.log('Products:', this.products);
+      });
+    this.activeSubscriptions.push(sub);
+    
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy() {
+    this.activeSubscriptions.forEach((sub) => sub.unsubscribe);
   }
 }
