@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IProduct } from '../models/product';
 
 import { ICart } from '../models/cart';
 import { ICartItem } from '../models/cart-item';
+import { HttpClient } from '@angular/common/http';
+import { IAppState } from '../../shared/app-state/app-state';
+import { AppStateService } from '../../shared/app-state/app-state.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +14,24 @@ import { ICartItem } from '../models/cart-item';
 
 export class CartService {
 
+  private cart: Observable<ICart[]> = new Observable<ICart[]>();
+
+  private readonly cartUrl = 'http://localhost:8001/api/v1/Basket';
+
   cartData: ICart = {
+    username: "",
     products: [],
     total: 0,
   };
   
   cartDataObs$ = new BehaviorSubject<ICart>(this.cartData);
 
-  constructor() {
+  constructor(private http: HttpClient) {
+
     const localCartData = JSON.parse(localStorage.getItem('cart') || '{}');
     if (localCartData && localCartData.products && Array.isArray(localCartData.products)) {
       this.cartData = {
+        username: "",
         products: localCartData.products,
         total: localCartData.total || 0
       };
@@ -30,7 +40,7 @@ export class CartService {
     this.cartDataObs$.next(this.cartData);
   }
 
-  addProduct(params: IProduct): void {
+  addProduct(params: IProduct, username: string | undefined): void {
     const { id, price, image, name } = params;
     const product: IProduct = { id, price, image, name };
     
@@ -50,20 +60,41 @@ export class CartService {
       this.cartData.total = this.getCartTotal();
     }
 
+    this.cartData.username = username;
+
     this.cartDataObs$.next({ ...this.cartData });
     localStorage.setItem('cart', JSON.stringify(this.cartData));
+
+    // call endpoint
+    this.updateCartBack(this.cartData).subscribe({
+      next: (response) => {
+        console.log('Cart successfully updated on backend:', response);
+      },
+      error: (err) => {
+        console.error('Error updating cart on backend:', err);
+      }
+    });
+
   }
 
-  clearCart(): void {
+    updateCartBack(cartData: ICart): Observable<any> {
+      return this.http.put(`${this.cartUrl}`, cartData); 
+    }
+
+    deleteCart(username: string | undefined): Observable<any> {
+      return this.http.delete(`${this.cartUrl}/` + username);
+    }
+
+ /* clearCart(): void {
     this.cartData = {
       products: [],
       total: 0,
     };
     this.cartDataObs$.next({ ...this.cartData });
     localStorage.setItem('cart', JSON.stringify(this.cartData));
-  }
+  }*/
 
-  removeProduct(id: number): void {
+  removeProduct(id: number, username: string | undefined): void {
     let updatedProducts = this.cartData.products.map(cartItem => {
       if (cartItem.product.id === id) {
         // Ako je količina veća od 1, smanjite je
@@ -80,12 +111,24 @@ export class CartService {
     // Ažurirajte podatke korpe
     this.cartData.products = updatedProducts.filter(product => product !== null) as ICartItem[];
     this.cartData.total = this.getCartTotal();
+
+    this.cartData.username = username;
   
     // Obavestite pretplatnike o promenama
     this.cartDataObs$.next({ ...this.cartData });
   
     // Sačuvajte ažuriranu korpu u localStorage
     localStorage.setItem('cart', JSON.stringify(this.cartData));
+
+    // call endpoint
+    this.updateCartBack(this.cartData).subscribe({
+      next: (response) => {
+        console.log('Cart successfully updated on backend:', response);
+      },
+      error: (err) => {
+        console.error('Error updating cart on backend:', err);
+      }
+    });
 
     // this._notification.create(
     //   'success',
@@ -108,6 +151,16 @@ export class CartService {
     this.cartData.total = this.getCartTotal();
     this.cartDataObs$.next({ ...this.cartData });
     localStorage.setItem('cart', JSON.stringify(this.cartData));
+
+    // call endpoint
+    this.updateCartBack(this.cartData).subscribe({
+      next: (response) => {
+        console.log('Cart successfully updated on backend:', response);
+      },
+      error: (err) => {
+        console.error('Error updating cart on backend:', err);
+      }
+    });
   }
 
 

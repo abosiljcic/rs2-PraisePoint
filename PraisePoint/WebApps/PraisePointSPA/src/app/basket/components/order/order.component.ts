@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ICart } from '../../models/cart';
 import { CartService } from '../../services/cart.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IAppState } from '../../../shared/app-state/app-state';
+import { Observable } from 'rxjs';
+import { AppStateService } from '../../../shared/app-state/app-state.service';
 
 
 @Component({
@@ -13,15 +16,24 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class OrderComponent implements OnInit {
 
-  cart: ICart =  { products: [], total: 0 };
+  cart: ICart;
   checkoutForm!: FormGroup;
+  username: string | undefined;
+  public appState$: Observable<IAppState>;
 
-  constructor(private formBuilder: FormBuilder, private cartService: CartService) { }
+  constructor(private formBuilder: FormBuilder, private cartService: CartService, private appStateService: AppStateService) { 
+    this.appState$ = this.appStateService.getAppState();
+    this.cart =  { username: this.username, products: [], total: 0 };
+  }
 
   ngOnInit(): void {
     this.initForm();
     this.cartService.cartDataObs$.subscribe((data: ICart) => {
       this.cart = data;
+    });
+    this.appState$.subscribe((state: IAppState) => {
+      this.username = state.username
+      console.log("Order Comp: Ovo je user:", this.username);
     });
   }
 
