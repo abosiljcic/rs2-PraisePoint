@@ -28,10 +28,10 @@ export class ProductItemComponent implements OnInit{
   addToCart(): void {
     // Pozivamo metodu iz CartService da dodamo proizvod u korpu
     this.cartService.addProduct({
-      id: this.product.id,
+      productId: this.product.productId,
       price: this.product.price,
-      image: this.product.image,
-      name: this.product.name
+      pictureUrl: this.product.pictureUrl,
+      productName: this.product.productName
     }, this.username);
   }
 

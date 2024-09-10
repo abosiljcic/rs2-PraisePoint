@@ -7,6 +7,7 @@ import { ICartItem } from '../models/cart-item';
 import { HttpClient } from '@angular/common/http';
 import { IAppState } from '../../shared/app-state/app-state';
 import { AppStateService } from '../../shared/app-state/app-state.service';
+import { Order } from '../models/order';
 
 @Injectable({
   providedIn: 'root'
@@ -41,17 +42,17 @@ export class CartService {
   }
 
   addProduct(params: IProduct, username: string | undefined): void {
-    const { id, price, image, name } = params;
-    const product: IProduct = { id, price, image, name };
+    const { productId, price, pictureUrl, productName } = params;
+    const product: IProduct = { productId, price, pictureUrl, productName };
     
-    if (!this.isProductInCart(id)) {
+    if (!this.isProductInCart(productId)) {
       // Dodaj novi proizvod u korpu
       this.cartData.products.push({ product, quantity: 1 });
       this.cartData.total += product.price;
     } else {
       // Ažuriraj količinu postojećeg proizvoda
       this.cartData.products = this.cartData.products.map((item) => {
-        if (item.product.id === id) {
+        if (item.product.productId === productId) {
           item.quantity += 1; // Inkrementiraj količinu
         }
         return item;
@@ -68,7 +69,7 @@ export class CartService {
     // call endpoint
     this.updateCartBack(this.cartData).subscribe({
       next: (response) => {
-        console.log('Cart successfully updated on backend:', response);
+        console.log('Cart successfully updated on backend for user: ' + this.cartData.username, response);
       },
       error: (err) => {
         console.error('Error updating cart on backend:', err);
@@ -85,6 +86,10 @@ export class CartService {
       return this.http.delete(`${this.cartUrl}/` + username);
     }
 
+    checkout(orderData: Order): Observable<any> {
+      return this.http.post(`${this.cartUrl}/Checkout`, orderData);
+    }
+
  /* clearCart(): void {
     this.cartData = {
       products: [],
@@ -94,9 +99,9 @@ export class CartService {
     localStorage.setItem('cart', JSON.stringify(this.cartData));
   }*/
 
-  removeProduct(id: number, username: string | undefined): void {
+  removeProduct(id: string, username: string | undefined): void {
     let updatedProducts = this.cartData.products.map(cartItem => {
-      if (cartItem.product.id === id) {
+      if (cartItem.product.productId === id) {
         // Ako je količina veća od 1, smanjite je
         if (cartItem.quantity > 1) {
           return { ...cartItem, quantity: cartItem.quantity - 1 };
@@ -123,7 +128,7 @@ export class CartService {
     // call endpoint
     this.updateCartBack(this.cartData).subscribe({
       next: (response) => {
-        console.log('Cart successfully updated on backend:', response);
+        console.log('Cart successfully updated on backend for user: ' + this.cartData.username, response);
       },
       error: (err) => {
         console.error('Error updating cart on backend:', err);
@@ -137,10 +142,10 @@ export class CartService {
     // );
   }
 
-  updateCart(id: number, quantity: number): void {
+  updateCart(id: string, quantity: number): void {
     // copy array, find item index and update
     let updatedProducts = [...this.cartData.products];
-    let productIndex = updatedProducts.findIndex((prod) => prod.product.id == id);
+    let productIndex = updatedProducts.findIndex((prod) => prod.product.productId == id);
 
     updatedProducts[productIndex] = {
       ...updatedProducts[productIndex],
@@ -155,7 +160,7 @@ export class CartService {
     // call endpoint
     this.updateCartBack(this.cartData).subscribe({
       next: (response) => {
-        console.log('Cart successfully updated on backend:', response);
+        console.log('Cart successfully updated on backend for user: ' + this.cartData.username, response);
       },
       error: (err) => {
         console.error('Error updating cart on backend:', err);
@@ -163,9 +168,8 @@ export class CartService {
     });
   }
 
-
-  isProductInCart(id: number): boolean {
-    return this.cartData.products.findIndex((prod) => prod.product.id === id) !== -1;
+  isProductInCart(id: string): boolean {
+    return this.cartData.products.findIndex((prod) => prod.product.productId === id) !== -1;
   }
 
   getCartTotal(): number {

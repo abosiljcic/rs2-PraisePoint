@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IAppState } from '../../../shared/app-state/app-state';
 import { Observable } from 'rxjs';
 import { AppStateService } from '../../../shared/app-state/app-state.service';
+import { Order } from '../../models/order';
+import { ICartItem } from '../../models/cart-item';
 
 
 @Component({
@@ -39,29 +41,50 @@ export class OrderComponent implements OnInit {
 
   private initForm(): void {
     this.checkoutForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      username: ['', Validators.required],
       email: ['', Validators.email],
       address: ['', Validators.required],
-      address2: [''],
       country: ['', Validators.required],
+      city: ['', Validators.required],
       state: ['', Validators.required],
       zip: ['', Validators.required],
       sameAddress: [false],
-      saveInfo: [false],
-      paymentMethod: ['credit', Validators.required],
-      ccName: ['', Validators.required],
-      ccNumber: ['', Validators.required],
-      ccExpiration: ['', Validators.required],
-      ccCvv: ['', Validators.required]
+      saveInfo: [false]
     });
 
     this.loadSavedData();
   }
 
+  createOrder(): Order {
+    const formValues = this.checkoutForm.value;
+    const order: Order = {
+      buyerId: "",
+      buyerUsername: formValues.username,
+      emailAddress: formValues.email,
+      street: formValues.address,
+      country: formValues.country,
+      city: formValues.city,
+      state: formValues.state,
+      zipCode: formValues.zip,
+      orderItems: this.getCartProducts()
+    };
+    return order;
+  }
+
   onSubmit(): void {
     if (this.checkoutForm.valid) {
       console.log('Form Submitted', this.checkoutForm.value);
+
+      const order = this.createOrder();
+      this.cartService.checkout(order).subscribe({
+        next: (response) => {
+          console.log('successful checkout', response);
+        },
+        error: (err) => {
+          console.error('Error checkout:', err);
+        }
+      });;
+
       if (this.checkoutForm.value.saveInfo) {
         localStorage.setItem('checkoutFormData', JSON.stringify(this.checkoutForm.value));
       } else {

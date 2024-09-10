@@ -56,7 +56,7 @@ export class CartComponent implements OnInit {
     // call endpoint
     this.cartService.deleteCart(this.username).subscribe({
       next: (response) => {
-        console.log('Cart successfully updated on backend:', response);
+        console.log('Cart successfully updated on backend for user: ' + this.cartData.username , response);
       },
       error: (err) => {
         console.error('Error updating cart on backend:', err);
