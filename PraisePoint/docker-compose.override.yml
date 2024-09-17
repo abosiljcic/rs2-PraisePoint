@@ -112,5 +112,5 @@ services:
       - mssql
       - rabbitmq
     ports:
-      - "8005:8080"
+      - "8007:8080"
 
