@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faShop, faHome, faCartShopping, faUser } from '@fortawesome/free-solid-svg-icons';
-import { Observable } from 'rxjs';
 import { IAppState } from '../shared/app-state/app-state';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { AppStateService } from '../shared/app-state/app-state.service';
+import { AuthenticationFacadeService } from '../user/domain/application-services/authentication-facade.service.ts.service';
 import { RouterModule } from '@angular/router';
 import { Role } from '../shared/app-state/role';
 
@@ -22,29 +23,68 @@ export class NavigationComponent implements OnInit {
   faHome = faHome;
   faUser = faUser;
 
-  public appState$: Observable<IAppState>;
+  public appState$: BehaviorSubject<IAppState>;
+  public appState2$: Observable<IAppState>;
   public appState: IAppState | null = null;
+  activeSubscriptions: Subscription[] = [];
+  private loggedInSubject = new BehaviorSubject<boolean>(false);
+  isLoggedIn$: Observable<boolean> = this.loggedInSubject.asObservable();
+  isLoggedIn: boolean = false;
 
-  constructor(private appStateService: AppStateService) {
-    this.appState$ = this.appStateService.getAppState();
+  constructor(private appStateService: AppStateService, private authenticationService: AuthenticationFacadeService) {
+    const storedState = localStorage.getItem('appState');
+
+    const initialState: IAppState = storedState ? JSON.parse(storedState) : {};
+    this.appState$ = new BehaviorSubject<IAppState>(initialState);
+    this.appState2$ = this.appStateService.getAppState();
   }
 
   ngOnInit(): void {
-    this.appState$.subscribe((state: IAppState) => {
-      this.appState = state; 
+    const sub = this.appState$.subscribe((state: IAppState) => {
+      this.appState = state;
+      this.loggedInSubject.next(!state.isEmpty());
+      this.checkLoginStatus();
     });
+    const sub2 = this.appState2$.subscribe((state: IAppState) => {
+      console.log("Updating app state.");
+      this.appState = state;
+      this.loggedInSubject.next(!state.isEmpty());
+      this.checkLoginStatus();
+    });
+    const sub3 = this.isLoggedIn$.subscribe(loggedIn => {
+      this.isLoggedIn = loggedIn;
+    });
+    this.activeSubscriptions.push(sub3);
+    this.activeSubscriptions.push(sub2);
+    this.activeSubscriptions.push(sub);
+  }
+
+  ngOnDestroy() {
+    this.activeSubscriptions.forEach((sub) => sub.unsubscribe);
+  }
+
+  checkLoginStatus() {
+    const loggedIn = !!localStorage.getItem('appState');
+    this.loggedInSubject.next(loggedIn);
+    return this.isLoggedIn;
+  }
+
+  public logout() {
+    this.loggedInSubject.next(false);
+    this.authenticationService.logout();
+    localStorage.removeItem('appState');
   }
 
   public userLoggedIn(): boolean {
-    return this.appState ? !this.userLoggedOut(this.appState) : false;
+    return this.appState ? true : false;
   }
 
-  public userLoggedOut(appState: IAppState): boolean {
-    return appState.isEmpty();
-  }
-
-  public hasAdminRole(appState: IAppState): boolean {
-    return appState.getRole() === Role.Admin;
+  public hasAdminRole(): boolean {
+    this.checkLoginStatus();
+    if (typeof this.appState?.roles === 'string') {
+      return this.appState.roles === Role.Admin;
+    }
+    return this.appState?.roles?.find((registeredRole: Role) => registeredRole === Role.Admin) !== undefined;
   }
 
 }
