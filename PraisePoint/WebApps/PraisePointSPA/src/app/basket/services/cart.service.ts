@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IProduct } from '../models/product';
-
+import { switchMap, catchError, of } from 'rxjs';
 import { ICart } from '../models/cart';
 import { ICartItem } from '../models/cart-item';
 import { HttpClient } from '@angular/common/http';
@@ -18,6 +18,7 @@ export class CartService {
   private cart: Observable<ICart[]> = new Observable<ICart[]>();
 
   private readonly cartUrl = 'http://localhost:8001/api/v1/Basket';
+  private readonly orderUrl = 'http://localhost:8001/api/v1/Order';
 
   cartData: ICart = {
     username: "",
@@ -86,8 +87,22 @@ export class CartService {
       return this.http.delete(`${this.cartUrl}/` + username);
     }
 
-    checkout(orderData: Order): Observable<any> {
+    checkoutBasket(orderData: Order): Observable<any> {
       return this.http.post(`${this.cartUrl}/Checkout`, orderData);
+    }
+
+    checkoutOrder(orderData: Order): Observable<any> {
+      return this.http.post(`${this.orderUrl}`, orderData);
+    }
+
+    checkout(orderData: Order): Observable<any> {
+      return this.checkoutBasket(orderData).pipe(
+        switchMap(() => this.checkoutOrder(orderData)), 
+        catchError(error => {
+          console.error('Error during checkout process', error);
+          return of(-1);
+        })
+      );
     }
 
  /* clearCart(): void {
@@ -165,7 +180,7 @@ export class CartService {
       error: (err) => {
         console.error('Error updating cart on backend:', err);
       }
-    });
+    });  
   }
 
   isProductInCart(id: string): boolean {

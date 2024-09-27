@@ -42,7 +42,7 @@ export class CartComponent implements OnInit {
       this.username = state.username
       console.log("Cart Comp: Ovo je user:", this.username);
     });
-  }
+  } 
 
   clearCart(): void {
     this.cartData = {

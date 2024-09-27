@@ -58,18 +58,19 @@ export class OrderComponent implements OnInit {
   createOrder(): Order {
     const formValues = this.checkoutForm.value;
     const order: Order = {
-      buyerId: "",
-      buyerUsername: formValues.username,
-      emailAddress: formValues.email,
       street: formValues.address,
-      country: formValues.country,
       city: formValues.city,
       state: formValues.state,
+      country: formValues.country,
       zipCode: formValues.zip,
-      orderItems: this.getCartProducts()
+      emailAddress: formValues.email,
+      buyerId: "",
+      buyerUsername: formValues.username,
+      orderItems: this.getOrderItems() 
     };
     return order;
   }
+  
 
   onSubmit(): void {
     if (this.checkoutForm.valid) {
@@ -83,7 +84,7 @@ export class OrderComponent implements OnInit {
         error: (err) => {
           console.error('Error checkout:', err);
         }
-      });;
+      });
 
       if (this.checkoutForm.value.saveInfo) {
         localStorage.setItem('checkoutFormData', JSON.stringify(this.checkoutForm.value));
@@ -105,6 +106,22 @@ export class OrderComponent implements OnInit {
   }
 
   getCartProducts() {
-    return this.cart.products;
+    return this.cart.products.map(item => ({
+      productName: item.product.productName,
+      productId: item.product.productId,
+      pictureUrl: item.product.pictureUrl,
+      price: item.product.price,
+      quantity: item.quantity
+    }));
+  } 
+
+  getOrderItems(): any[] {
+    return this.getCartProducts().map(item => ({
+      productName: item.productName,
+      productId: item.productId,
+      pictureUrl: item.pictureUrl,
+      price: item.price,
+      units: item.quantity
+    }));
   }
 }
