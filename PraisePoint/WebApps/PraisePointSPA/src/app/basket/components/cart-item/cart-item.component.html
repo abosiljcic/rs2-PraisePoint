@@ -1,9 +1,9 @@
 
 <div class="card" style="width: 18rem;" *ngIf="cartitem.product" >
-    <h5 class="card-header">{{ cartitem.product.name }}</h5>
-    <img class="card-img-top" [src]="cartitem.product.image" alt="Product image">
+    <h5 class="card-header">{{ cartitem.product.productName }}</h5>
+    <img class="card-img-top" [src]="cartitem.product.pictureUrl" alt="Product image">
     <div class="card-body">
-    <h5 class="card-title">Name: {{ cartitem.product.name }}</h5>
+    <h5 class="card-title">Name: {{ cartitem.product.productName }}</h5>
     <p class="card-text">Price: {{ cartitem.product.price }}</p>
 
     <!-- <button class="btn btn-primary" (click)="addToCart()">Remove from Cart</button> -->
