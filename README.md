@@ -8,7 +8,6 @@ PraisePoint is an Employee Recognition application designed to enhance workplace
 
 - Real-Time Recognition: Allow employees to give and receive praise instantly.
 - Customizable Rewards: Integrate reward system tailored to organizational needs.
-- M
   
 ## Technologies Used
 
@@ -18,3 +17,5 @@ PraisePoint is an Employee Recognition application designed to enhance workplace
 ## Architecture
 
 PraisePoint follows a microservices architecture, allowing each component to function independently and scale efficiently. The system consists of:
+
+![image](https://github.com/user-attachments/assets/57d0cc5e-f249-4553-9ccc-3154d603a7ee)
