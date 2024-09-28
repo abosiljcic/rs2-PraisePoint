@@ -16,6 +16,22 @@ PraisePoint is an Employee Recognition application designed to enhance workplace
 
 ## Architecture
 
-PraisePoint follows a microservices architecture, allowing each component to function independently and scale efficiently. The system consists of:
+PraisePoint follows a microservices architecture, allowing each component to function independently and scale efficiently. The system consists of the following services:
 
-![image](https://github.com/user-attachments/assets/57d0cc5e-f249-4553-9ccc-3154d603a7ee)
+![image](https://github.com/user-attachments/assets/8e5a7d44-cc11-44d8-bb36-cec92a160e23)
+
+## Build
+
+For building the backend part, position into the `PraisePoint` directory and run the following command.
+
+```
+docker compose -f ./docker-compose.yml -f ./docker-compose.override.yml up -d --build
+docker compose down
+```
+
+For building the frontend part, position into the `PraisePoint/WebApps/PraisePointSPA, and run the following commands:
+
+```
+npm install
+ng serve
+```
