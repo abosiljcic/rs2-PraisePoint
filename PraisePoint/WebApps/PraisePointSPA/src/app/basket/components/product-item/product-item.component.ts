@@ -28,17 +28,17 @@ export class ProductItemComponent implements OnInit{
   addToCart(): void {
     // Pozivamo metodu iz CartService da dodamo proizvod u korpu
     this.cartService.addProduct({
-      productId: this.product.productId,
+      id: this.product.id,
       price: this.product.price,
-      pictureUrl: this.product.pictureUrl,
-      productName: this.product.productName
+      imageUrl: this.product.imageUrl,
+      name: this.product.name
     }, this.username);
   }
 
   ngOnInit(): void {
     this.appState$.subscribe((state: IAppState) => {
       this.username = state.username
-      console.log("Product Item Comp: Ovo je user:", this.username);
+      //console.log("Product Item Comp: Ovo je user:", this.username);
     });
   }
 }

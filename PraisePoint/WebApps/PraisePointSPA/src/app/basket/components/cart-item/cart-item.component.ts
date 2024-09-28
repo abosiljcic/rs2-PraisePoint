@@ -32,7 +32,7 @@ export class CartItemComponent implements OnInit{
   }
 
   addToCart() : void {
-    this.cartService.removeProduct(this.cartitem.product.productId, this.username);
+    this.cartService.removeProduct(this.cartitem.product.id, this.username);
   }
 
   get quantity(): number {
@@ -41,15 +41,15 @@ export class CartItemComponent implements OnInit{
 
   incrementQuantity(): void {
     this.cartitem.quantity++;
-    this.cartService.updateCart(this.cartitem.product.productId, this.cartitem.quantity);
+    this.cartService.updateCart(this.cartitem.product.id, this.cartitem.quantity);
   }
 
   decrementQuantity(): void {
     if (this.cartitem.quantity > 1) {
       this.cartitem.quantity--;
-      this.cartService.updateCart(this.cartitem.product.productId, this.cartitem.quantity);
+      this.cartService.updateCart(this.cartitem.product.id, this.cartitem.quantity);
     } else if (this.cartitem.quantity === 1) {
-      this.cartService.removeProduct(this.cartitem.product.productId, this.username);
+      this.cartService.removeProduct(this.cartitem.product.id, this.username);
     }
   }
 }

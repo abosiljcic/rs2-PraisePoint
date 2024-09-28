@@ -13,7 +13,7 @@
           <ul class="list-group mb-3">
             <li *ngFor="let item of getCartProducts()" class="list-group-item d-flex justify-content-between lh-sm">
               <div>
-                <h6 class="my-0">{{ item.productName }}</h6>
+                <h6 class="my-0">{{ item.name }}</h6>
                 <small class="text-body-secondary">Quantity: {{ item.quantity }}</small>
               </div>
               <span class="text-body-secondary">${{ item.price * item.quantity }}</span>
@@ -118,4 +118,3 @@
       </div>
     </main>
   </div>
-  

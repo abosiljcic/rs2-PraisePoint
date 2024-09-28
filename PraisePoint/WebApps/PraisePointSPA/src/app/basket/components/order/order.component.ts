@@ -107,9 +107,9 @@ export class OrderComponent implements OnInit {
 
   getCartProducts() {
     return this.cart.products.map(item => ({
-      productName: item.product.productName,
-      productId: item.product.productId,
-      pictureUrl: item.product.pictureUrl,
+      name: item.product.name,
+      id: item.product.id,
+      imageUrl: item.product.imageUrl,
       price: item.product.price,
       quantity: item.quantity
     }));
@@ -117,9 +117,9 @@ export class OrderComponent implements OnInit {
 
   getOrderItems(): any[] {
     return this.getCartProducts().map(item => ({
-      productName: item.productName,
-      productId: item.productId,
-      pictureUrl: item.pictureUrl,
+      productName: item.name,
+      productId: item.id,
+      pictureUrl: item.imageUrl,
       price: item.price,
       units: item.quantity
     }));

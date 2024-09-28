@@ -43,17 +43,17 @@ export class CartService {
   }
 
   addProduct(params: IProduct, username: string | undefined): void {
-    const { productId, price, pictureUrl, productName } = params;
-    const product: IProduct = { productId, price, pictureUrl, productName };
+    const { id, price, imageUrl, name } = params;
+    const product: IProduct = { id, price, imageUrl, name };
     
-    if (!this.isProductInCart(productId)) {
+    if (!this.isProductInCart(id)) {
       // Dodaj novi proizvod u korpu
       this.cartData.products.push({ product, quantity: 1 });
       this.cartData.total += product.price;
     } else {
       // Ažuriraj količinu postojećeg proizvoda
       this.cartData.products = this.cartData.products.map((item) => {
-        if (item.product.productId === productId) {
+        if (item.product.id === id) {
           item.quantity += 1; // Inkrementiraj količinu
         }
         return item;
@@ -116,7 +116,7 @@ export class CartService {
 
   removeProduct(id: string, username: string | undefined): void {
     let updatedProducts = this.cartData.products.map(cartItem => {
-      if (cartItem.product.productId === id) {
+      if (cartItem.product.id === id) {
         // Ako je količina veća od 1, smanjite je
         if (cartItem.quantity > 1) {
           return { ...cartItem, quantity: cartItem.quantity - 1 };
@@ -160,7 +160,7 @@ export class CartService {
   updateCart(id: string, quantity: number): void {
     // copy array, find item index and update
     let updatedProducts = [...this.cartData.products];
-    let productIndex = updatedProducts.findIndex((prod) => prod.product.productId == id);
+    let productIndex = updatedProducts.findIndex((prod) => prod.product.id == id);
 
     updatedProducts[productIndex] = {
       ...updatedProducts[productIndex],
@@ -184,7 +184,7 @@ export class CartService {
   }
 
   isProductInCart(id: string): boolean {
-    return this.cartData.products.findIndex((prod) => prod.product.productId === id) !== -1;
+    return this.cartData.products.findIndex((prod) => prod.product.id === id) !== -1;
   }
 
   getCartTotal(): number {
